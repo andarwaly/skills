@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Recipe Inbox",
+  "behavior": "append-specific",
+  "noteContentFormat": "\n---\n## {{title}}\n\nvia {{url}}\n\n{{content}}",
+  "noteNameFormat": "",
+  "path": "Databases/Recipes.md",
+  "triggers": [
+    "schema:@Recipe",
+    "https://www.allrecipes.com/"
+  ],
+  "properties": [
+    { "name": "url", "value": "{{url}}", "type": "text" },
+    { "name": "name", "value": "{{title}}", "type": "text" },
+    { "name": "author", "value": "{{schema:@Recipe:author|wikilink}}", "type": "multitext" },
+    { "name": "cookTime", "value": "{{schema:@Recipe:cookTime}}", "type": "text" },
+    { "name": "tags", "value": "recipe, inbox", "type": "multitext" }
+  ]
+}

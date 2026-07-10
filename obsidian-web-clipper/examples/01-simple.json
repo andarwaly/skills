@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Article",
+  "behavior": "create",
+  "noteContentFormat": "# {{title}}\n\n{{content}}",
+  "noteNameFormat": "{{title|safe_name}}",
+  "path": "Clippings",
+  "triggers": [
+    "https://example.com/"
+  ],
+  "properties": [
+    { "name": "source", "value": "{{url}}", "type": "text" },
+    { "name": "author", "value": "{{author|wikilink}}", "type": "multitext" },
+    { "name": "published", "value": "{{published|date:\"YYYY-MM-DD\"}}", "type": "date" },
+    { "name": "description", "value": "{{description}}", "type": "text" },
+    { "name": "cover", "value": "{{image}}", "type": "text" },
+    { "name": "tags", "value": "to-read, clippings", "type": "multitext" }
+  ]
+}

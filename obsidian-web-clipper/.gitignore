@@ -1,5 +1,4 @@
 .DS_Store
-.pi/gsd/
 *.log
 tmp-*
 *.nested-backup

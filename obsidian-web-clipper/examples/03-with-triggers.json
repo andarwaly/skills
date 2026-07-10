@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Recipe Clipper",
+  "behavior": "create",
+  "noteContentFormat": "# {{title}}\n\n{{content}}",
+  "noteNameFormat": "{{title|safe_name}}",
+  "path": "Clippings/Recipes",
+  "triggers": [
+    "https://www.allrecipes.com/",
+    "/^https:\\/\\/.*\\.allrecipes\\.com\\/.*$/",
+    "schema:@Recipe"
+  ],
+  "properties": [
+    { "name": "source", "value": "{{url}}", "type": "text" },
+    { "name": "name", "value": "{{schema:@Recipe:name}}", "type": "text" },
+    { "name": "author", "value": "{{schema:@Recipe:author|wikilink}}", "type": "multitext" },
+    { "name": "published", "value": "{{published|date:\"YYYY-MM-DD\"}}", "type": "date" },
+    { "name": "tags", "value": "recipe, clippings", "type": "multitext" }
+  ]
+}

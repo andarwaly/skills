@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "REPLACE_ME — Template Name",
+  "behavior": "create",
+  "noteContentFormat": "# {{title}}\n\n{{content}}",
+  "noteNameFormat": "{{title|safe_name}}",
+  "path": "REPLACE_ME",
+  "triggers": ["REPLACE_ME"],
+  "context": "",
+  "properties": [
+    { "name": "source", "value": "{{url}}", "type": "text" },
+    { "name": "author", "value": "REPLACE_ME", "type": "multitext" },
+    { "name": "published", "value": "REPLACE_ME", "type": "date" },
+    { "name": "description", "value": "{{description}}", "type": "text" },
+    { "name": "cover", "value": "{{image}}", "type": "text" },
+    { "name": "tags", "value": "REPLACE_ME", "type": "multitext" }
+  ]
+}

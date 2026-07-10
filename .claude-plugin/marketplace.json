@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    {
+      "name": "Web Clipper",
+      "source": "./",
+      "skills": [
+        "./obsidian-web-clipper"
+      ]
+    }
+  ]
+}

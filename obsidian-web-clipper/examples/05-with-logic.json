@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Changelog Entry",
+  "behavior": "create",
+  "noteContentFormat": "# {{title}}\n\n**Source:** {{url}}\n\n## Key Points\n\n{% if highlights %}{% for highlight in highlights %}- {{highlight.text}}\n{% endfor %}{% else %}{{content}}{% endif %}\n\n## Metadata\n\n| Field | Value |\n|-------|-------|\n| Author | {{author}} |\n| Published | {{published\\|date:\"YYYY-MM-DD\"}} |\n{% if tags %}| Tags | {{tags\\|join:\", \"}} |{% endif %}\n\n## AI Notes\n\n{% set summary = \"What are the 3 most important changes described in this content?\" %}\n{{summary}}",
+  "noteNameFormat": "CHANGELOG - {{title|safe_name}}",
+  "path": "Clippings/Changelogs",
+  "triggers": [
+    "/^https:\\/\\/github\\.com\\/.*\\/releases\\/.*$/"
+  ],
+  "properties": [
+    { "name": "source", "value": "{{url}}", "type": "text" },
+    { "name": "type", "value": "changelog", "type": "text" },
+    { "name": "author", "value": "{{author|wikilink}}", "type": "multitext" },
+    { "name": "published", "value": "{{published|date:\"YYYY-MM-DD\"}}", "type": "date" },
+    { "name": "tags", "value": "to-read, changelog", "type": "multitext" }
+  ]
+}
