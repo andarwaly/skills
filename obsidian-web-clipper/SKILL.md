@@ -15,23 +15,27 @@ A skill pack for building [Obsidian Web Clipper](https://obsidian.md/help/web-cl
 
 ---
 
+
 ## Template Creation
 
-Produce a `.json` file ready to import. Start from the archetype, fill the `REPLACE_ME` tokens, wire extraction, and deliver.
+### Discovery — gather requirements first
+
+Before writing any code, interview the user to understand what they need. Ask until you have clear answers:
+
+1. **What website or platform** is this template for? (e.g. Wikipedia, Medium, a blog, a podcast site)
+2. **What content** should be captured? (article body, video transcript, comments, highlights)
+3. **What metadata fields** matter to them? (author, published date, tags, cover image, description, custom fields)
+4. **Where should notes land** in their vault? (folder path, naming convention)
+5. **Any special processing?** (AI summary via Interpreter, conditional logic, table formatting)
+6. **Any special trigger patterns?** (specific subdomain, regex, schema.org type matching)
+
+Repeat each answer back for confirmation before proceeding. Only move to execution after the user confirms all answers.
 
 ### Archetype
 
-A single structural skeleton at [templates/template.json](templates/template.json) shows the full set of configurable fields. Copy it, then fill `REPLACE_ME` tokens and remove unused fields.
+A single structural skeleton at [templates/template.json](templates/template.json) shows the full set of configurable fields. Copy it, then fill the resolved values from the discovery phase and remove unused fields.
 
 Refer to [references/template-json-reference.md](references/template-json-reference.md) for every field, property type, trigger format, and behavior value.
-
-### Steps
-
-#### 1. Start from skeleton
-
-Copy `templates/template.json` into a working file. Set `name` to the platform and content type (e.g. `"Medium Article"`, `"YouTube Video"`).
-
-**Done when:** The file has `schemaVersion`, `name`, `behavior`, `noteContentFormat`, `noteNameFormat`, `path`, `triggers`, and a `properties` array. All `REPLACE_ME` tokens are still present.
 
 #### 2. Set triggers
 
