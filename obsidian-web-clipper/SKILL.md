@@ -20,21 +20,24 @@ A skill pack for building [Obsidian Web Clipper](https://obsidian.md/help/web-cl
 
 ### Discovery — gather requirements first
 
-Before writing any code, interview the user to understand what they need. Ask until you have clear answers:
 
-1. **What website or platform** is this template for? (e.g. Wikipedia, Medium, a blog, a podcast site)
-2. **What content** should be captured? (article body, video transcript, comments, highlights)
-3. **What metadata fields** matter to them? (author, published date, tags, cover image, description, custom fields)
-4. **Where should notes land** in their vault? (folder path, naming convention)
-5. **Any special processing?** (AI summary via Interpreter, conditional logic, table formatting)
-6. **Any special trigger patterns?** (specific subdomain, regex, schema.org type matching)
 
-Repeat each answer back for confirmation before proceeding. Only move to execution after the user confirms all answers.
+
+**Cover these topics (not necessarily in this order):**
+
+1. **Vault conventions** — How does the user organize their vault? Folder structure, naming patterns, any vault-wide rule the template must follow.
+2. **Target folder** — Where should clipped notes land? (e.g. `Clippings/`, `Inbox/`, `Resources/Articles/`)
+3. **Existing frontmatter system** — What properties (YAML frontmatter) does the user already use across notes? Any property they always include? Any they want for this specific content type?
+4. **Interpreter (AI) usage** — Does the user want LLM-powered extraction (summaries, structured data, transformations)? Requires enabling Interpreter in the extension.
+5. **Note body structure** — What should the note content look like? Bare `{{content}}`? Sections (AI Summary, Highlights, Key Quotes)? Custom formatting?
+
+The agent should explore the user's vault structure if accessible (folder layout, existing notes, property patterns) before asking about it. Do not ask questions the vault itself can answer.
+
+Only after all requirements are confirmed, proceed to template construction.
 
 ### Archetype
 
 A single structural skeleton at [templates/template.json](templates/template.json) shows the full set of configurable fields. Copy it, then fill the resolved values from the discovery phase and remove unused fields.
-
 Refer to [references/template-json-reference.md](references/template-json-reference.md) for every field, property type, trigger format, and behavior value.
 
 #### 2. Set triggers
