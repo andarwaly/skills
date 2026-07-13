@@ -200,9 +200,7 @@ Complete template JSON files: [examples/](examples/). More platforms: [reference
 
 | File | When to reach |
 |------|---------------|
-| [references/template-json-reference.md](references/template-json-reference.md) | Full schema reference — all fields, property types, triggers, behavior |
-| [references/variable-reference.md](references/variable-reference.md) | Full syntax for preset, meta, selector, schema, prompt variables |
-| [references/12-platform-variables.md](references/12-platform-variables.md) | Known variable patterns for 10+ platforms |
-| [references/filter-reference.md](references/filter-reference.md) | Filter names, arguments, and syntax |
-| [references/template-logic.md](references/template-logic.md) | Conditionals, loops, fallbacks, set |
+| [references/template-reference.md](references/template-reference.md) | Schema fields, variable types, template logic — all in one file |
+| [references/filter-reference.md](references/filter-reference.md) | Full filter reference with gotchas |
+| [references/12-platform-variables.md](references/12-platform-variables.md) | Known extraction patterns for 10+ platforms |
 | [references/gotchas.md](references/gotchas.md) | Common errors and solutions |
