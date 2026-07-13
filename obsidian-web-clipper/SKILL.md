@@ -194,12 +194,3 @@ Complete template JSON files: [examples/](examples/). More platforms: [reference
 |------|---------------|
 | [references/template-json-reference.md](references/template-json-reference.md) | Full schema reference — all fields, property types, triggers, behavior |
 | [references/variable-reference.md](references/variable-reference.md) | Full syntax for preset, meta, selector, schema, prompt variables |
-| [references/12-platform-variables.md](references/12-platform-variables.md) | Known variable patterns for Medium, Substack, YouTube, GitHub, Reddit, Apple Podcasts, and more |
-| [references/filter-reference.md](references/filter-reference.md) | Filter names, arguments, and syntax |
-| [references/template-logic.md](references/template-logic.md) | Conditionals, loops, fallbacks, set |
-| [references/gotchas.md](references/gotchas.md) | Common errors and solutions |
-| [references/06-templates.md](references/06-templates.md) | Official docs on template settings, triggers, behavior |
-| [references/07-variables.md](references/07-variables.md) | Official docs on all variable types |
-| [references/08-filters.md](references/08-filters.md) | Official full filter reference |
-| [references/09-logic.md](references/09-logic.md) | Official template logic reference |
-| [references/10-troubleshoot.md](references/10-troubleshoot.md) | Official troubleshoot docs (Defuddle bypass, Linux/iOS issues) |
