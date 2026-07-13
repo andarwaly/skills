@@ -143,6 +143,8 @@ Rank by reliability:
 **Done when:** Every variable uses the strongest available extraction type.
 
 
+## Troubleshooting & Debugging
+
 ### JSON won't import
 
 `properties` must be an array, not an object. See [references/template-json-reference.md](references/template-json-reference.md) for the full schema.
