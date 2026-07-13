@@ -31,9 +31,15 @@ A skill pack for building [Obsidian Web Clipper](https://obsidian.md/help/web-cl
 4. **Interpreter (AI) usage** — Does the user want LLM-powered extraction (summaries, structured data, transformations)? Requires enabling Interpreter in the extension.
 5. **Note body structure** — What should the note content look like? Bare `{{content}}`? Sections (AI Summary, Highlights, Key Quotes)? Custom formatting?
 
-The agent should explore the user's vault structure if accessible (folder layout, existing notes, property patterns) before asking about it. Do not ask questions the vault itself can answer.
 
-Only after all requirements are confirmed, proceed to template construction.
+**The agent should explore these files before asking:**
+- `CLAUDE.md`, `AGENTS.md`, `README.md` — often describe vault conventions
+- `.obsidian/templates.json` — template core plugin configuration (folder location, template format)
+- `.obsidian/types.json` — custom property types the user has defined
+- `.obsidian/plugins/templater-obsidian/` — Templater plugin data (template folder, conventions)
+- Any note in the vault's template folder (shows property patterns, naming, frontmatter structure)
+
+Read what exists. Only ask about what isn't in the files.
 
 ### Archetype
 
@@ -194,3 +200,7 @@ Complete template JSON files: [examples/](examples/). More platforms: [reference
 |------|---------------|
 | [references/template-json-reference.md](references/template-json-reference.md) | Full schema reference — all fields, property types, triggers, behavior |
 | [references/variable-reference.md](references/variable-reference.md) | Full syntax for preset, meta, selector, schema, prompt variables |
+| [references/12-platform-variables.md](references/12-platform-variables.md) | Known variable patterns for 10+ platforms |
+| [references/filter-reference.md](references/filter-reference.md) | Filter names, arguments, and syntax |
+| [references/template-logic.md](references/template-logic.md) | Conditionals, loops, fallbacks, set |
+| [references/gotchas.md](references/gotchas.md) | Common errors and solutions |
