@@ -26,6 +26,32 @@ Format tokens: `YYYY`, `MM`, `DD`, `HH`, `mm`, `ss`.
 
 Note: `replace` requires quoted arguments. No regex capture groups supported.
 
+Note: `replace` requires quoted arguments. Supports regex with `/pattern/flags` syntax: `{{text|replace:"/[aeiou]/g":"*"}}`. No capture groups — chain multiple `replace` calls instead.
+
+| `camel` | camelCase |
+| `pascal` | PascalCase |
+| `uncamel` | camelCase/PascalCase to space-separated words |
+| `capitalize` | Capitalize first character |
+| `decode_uri` | Decode URI-encoded string |
+
+## Numbers
+
+| Filter | Effect | Example |
+|--------|--------|---------|
+| `calc:"+10"` | Arithmetic (`+`, `-`, `*`, `/`, `**`) | `{{words\|calc:"/238"\|round}}` |
+| `length` | String/array/object length | `{{tags\|length}}` |
+| `round` | Round to integer or N decimals | `{{number\|round:2}}` |
+
+## Duration
+
+Converts ISO 8601 (`PT1H30M`) or plain seconds to formatted time.
+
+| Filter | Example | Output |
+|--------|---------|--------|
+| `duration` | (no args) | auto: `HH:mm:ss` over 1h, `mm:ss` under |
+| `duration:"HH:mm:ss"` | `"PT1H30M"\|duration:"HH:mm:ss"` | `01:30:00` |
+| `duration:"H:mm:ss"` | `"3665"\|duration:"H:mm:ss"` | `1:01:05` |
+
 ## Format
 
 | Filter | Effect | Example |
@@ -35,8 +61,23 @@ Note: `replace` requires quoted arguments. No regex capture groups supported.
 | `link` | `[Value](url)` | `{{url\|link}}` |
 | `image:"alt"` | `![alt](url)` | `{{cover\|image:"Cover"}}` |
 | `blockquote` | `> Value` | `{{text\|blockquote}}` |
+| `callout` | Obsidian callout | `{{text\|callout:"warning"}}` |
 | `list` | Bullet list | `{{items\|list}}` |
-| `join:", "` | Join array with delimiter | `{{tags\|join:", "}}` |
+| `list:numbered` | Numbered list | `{{items\|list:numbered}}` |
+| `list:task` | Task list | `{{items\|list:task}}` |
+| `table` | Array of objects → markdown table | `{{items\|table}}` |
+| `footnote` | Array/object → markdown footnotes | `{{items\|footnote}}` |
+
+## HTML processing
+
+| Filter | Effect |
+|--------|--------|
+| `markdown` | HTML string → Obsidian Flavored Markdown |
+| `strip_tags` | Remove all HTML tags |
+| `strip_attr` | Remove all HTML attributes |
+| `remove_attr` | Remove specified attributes only |
+| `remove_html` | Remove specified tags |
+| `strip_md` | Remove markdown formatting |
 
 ## Array
 
@@ -44,11 +85,19 @@ Note: `replace` requires quoted arguments. No regex capture groups supported.
 |--------|--------|
 | `first` | First element |
 | `last` | Last element |
+| `nth:N` | Nth element (0-indexed) |
 | `slice:start,count` | Sub-array, zero-indexed |
 | `unique` | Deduplicate |
+| `join:", "` | Join array with delimiter |
+| `split:" "` | Split string into array |
+| `merge` | Merge arrays |
+| `map:fn` | Transform each item |
+| `template:"str"` | Template string from objects |
+| `truncate:N` | Truncate to N characters |
 
 ## Filter Gotchas
 
-- **Quotes required:** `replace:"old":"new"` — unquoted `replace:old:new` fails silently.
-- **No regex capture groups:** `replace` is literal text, no `$1`/`$2`. Chain multiple `replace` calls.
-- **date pipe chaining:** `date` must be last if chained — `{{published|trim|date:"YYYY-MM-DD"}}`. `date_modify` works the same way.
+- **`date` must be last** when chained: `{{published\|trim\|date:"YYYY-MM-DD"}}`
+- **`replace` quoting:** unquoted `replace:old:new` fails silently. Use `replace:"old":"new"`.
+- **Regex in `replace`:** use `/pattern/flags` syntax. No capture group references.
+- **`date_modify` before `date`:** modify then format.

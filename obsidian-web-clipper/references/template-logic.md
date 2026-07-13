@@ -1,3 +1,4 @@
+
 # Template Logic
 
 ## Conditionals
@@ -8,7 +9,29 @@
 {% if highlights %} {{highlights}} {% else %} No highlights {% endif %}
 ```
 
-Uses `==` for string equality, `!=` for inequality. No `and`/`or` — nest conditionals instead.
+### Comparison operators
+
+| Operator | Description |
+|----------|-------------|
+| `==` | Equal to |
+| `!=` | Not equal to |
+| `>` | Greater than |
+| `<` | Less than |
+| `>=` | Greater than or equal to |
+| `<=` | Less than or equal to |
+| `contains` | String contains substring, or array contains value |
+
+### Logical operators
+
+| Operator | Alternative | Description |
+|----------|-------------|-------------|
+| `and` | `&&` | Both conditions true |
+| `or` | `\|\|` | At least one condition true |
+| `not` | `!` | Negates a condition |
+
+### Truthiness
+
+`false`, `null`, `undefined`, empty string `""`, `0`, and empty arrays `[]` are falsy. Everything else is truthy.
 
 ## Loops
 
@@ -17,10 +40,36 @@ Uses `==` for string equality, `!=` for inequality. No `and`/`or` — nest condi
 {% for author in schema:@Article:author %}{{author.name}}{% if not loop.last %}, {% endif %}{% endfor %}
 ```
 
-`loop` object fields:
-- `loop.first` — true on first iteration
-- `loop.last` — true on last iteration
-- `loop.index` — 1-indexed position
+### Loop sources
+
+- Schema arrays: `{% for item in schema:author %}`
+- Selector results: `{% for comment in selector:.comment %}`
+- Variables set earlier: `{% set items = selector:.item %}{% for item in items %}`
+
+### Loop variables
+
+| Variable | Description |
+|----------|-------------|
+| `loop.index` | Current iteration (1-indexed) |
+| `loop.index0` | Current iteration (0-indexed) |
+| `loop.first` | `true` if first iteration |
+| `loop.last` | `true` if last iteration |
+| `loop.length` | Total number of items |
+
+### Accessing array items by index
+
+```
+{{items[0]}}
+{{items[loop.index0]}}
+{{data["my-key"]}}
+```
+
+## Assign a variable
+
+```
+{% set slug = title|lower|replace:" ":"-" %}
+{% set items = selector:.list-item %}
+```
 
 ## Fallbacks
 
@@ -29,7 +78,11 @@ Uses `==` for string equality, `!=` for inequality. No `and`/`or` — nest condi
 ```
 {{title ?? "Untitled"}}
 {{author ?? schema:author ?? "Unknown"}}
-{{meta:property:og:image ?? schema:image ?? image}}
 ```
 
-Chain from strongest to weakest — schema → meta → selector → prompt → literal.
+Filters bind tighter than `??`: `{{title|upper ?? "UNTITLED"}}` applies `upper` to title first, then falls back.
+
+## Evaluation order
+
+1. Template logic (`{% if %}`, `{% for %}`, `{% set %}`) and `{{variables}}` evaluated first
+2. Prompt variables (`{{"summarize this"}}`) sent to Interpreter after

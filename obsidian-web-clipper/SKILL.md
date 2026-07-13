@@ -40,6 +40,12 @@ Only after all requirements are confirmed, proceed to template construction.
 A single structural skeleton at [templates/template.json](templates/template.json) shows the full set of configurable fields. Copy it, then fill the resolved values from the discovery phase and remove unused fields.
 Refer to [references/template-json-reference.md](references/template-json-reference.md) for every field, property type, trigger format, and behavior value.
 
+#### 1. Start from skeleton
+
+Copy `templates/template.json` into a working file. Set `name` to the platform and content type (e.g. `"Medium Article"`, `"YouTube Video"`).
+
+**Done when:** File has `schemaVersion`, `name`, `behavior`, `noteContentFormat`, `noteNameFormat`, `path`, `triggers`, and `properties`. All `REPLACE_ME` tokens present.
+
 #### 2. Set triggers
 
 Replace `triggers` with URL patterns for the target platform. Use bare prefix strings for known domains. Add a regex for subdomains.
@@ -130,29 +136,12 @@ Rank by reliability:
 
 **Done when:** Every variable uses the strongest available extraction type.
 
----
-
-## Troubleshooting & Debugging
-
-Use when extraction is failing, values are wrong, or the template won't import.
 
 ### JSON won't import
 
-**`properties` must be an array, not an object.**
+`properties` must be an array, not an object. See [references/template-json-reference.md](references/template-json-reference.md) for the full schema.
 
-Wrong:
-```json
-"properties": { "title": "{{title}}" }
-```
-
-Correct:
-```json
-"properties": [
-  { "name": "title", "value": "{{title}}", "type": "text" }
-]
-```
-
-### Old field names don't work
+### Old field names
 
 | Old (broken) | New (correct) |
 |-------------|---------------|
@@ -160,42 +149,27 @@ Correct:
 | `noteLocation` | `path` |
 | `content` | `noteContentFormat` |
 
-### Filter syntax
-
-Every filter argument must be quoted:
-
-Wrong: `{{title|replace:old:new}}`
-Correct: `{{title|replace:"old":"new"}}`
-
-No regex capture groups in `replace`. Chain multiple simple `replace` calls instead.
-
 ### Property types
 
-Each property needs the correct `type`:
+Each property needs a `type`: `text`, `multitext`, `date`, `checkbox`, `number`. See [references/template-json-reference.md](references/template-json-reference.md).
 
-| Type | Use for |
-|------|---------|
-| `text` | Single-line values |
-| `multitext` | Arrays of values (author list, tags) |
-| `date` | Date values (use `date` filter for formatting) |
-| `checkbox` | Boolean true/false |
-| `number` | Numeric values |
+### Filter gotchas
 
-### Content format gotchas
+Quoted arguments: `{{title|replace:"old":"new"}}`. No regex capture groups. `date` must be last when chained. See [references/filter-reference.md](references/filter-reference.md).
 
-- **YouTube dates:** `datePublished` is the video's original upload date, not the current date.
-- **`selectorHtml` → markdown:** The `selectorHtml:body|markdown` combo requires the `markdown` filter after it.
-- **Prompt variables need Interpreter enabled:** Without Interpreter on, `{{"summarize this"}}` renders as literal text.
+### Content gotchas
+
+- YouTube `datePublished` is the video's upload date, not the current date
+- `selectorHtml:body|markdown` needs the `markdown` filter after it
+- Prompt variables need Interpreter enabled in the extension
+
+### Security
+
+Full Web Clipper settings exports contain interpreter API keys in plaintext (`interpreter_settings.providers[].apiKey`). Never commit a full export to version control.
 
 ### Platform limitations
 
-**Twitter/X:** Post text extracted from page title via text filters. Works on individual post pages. Use highlights for full thread capture.
-
-**Substack:** Full articles accessible via meta tags, but some content may be paywalled.
-
-**Reddit:** May block content without authentication. Use selector variables for subreddit-specific fields.
-
----
+See [references/12-platform-variables.md](references/12-platform-variables.md) for per-platform notes.
 
 ## Platform Quick Reference
 
