@@ -44,7 +44,7 @@ Read what exists. Only ask about what isn't in the files.
 ### Archetype
 
 A single structural skeleton at [templates/template.json](templates/template.json) shows the full set of configurable fields. Copy it, then fill the resolved values from the discovery phase and remove unused fields.
-Refer to [references/template-json-reference.md](references/template-json-reference.md) for every field, property type, trigger format, and behavior value.
+Refer to [references/template-reference.md](references/template-reference.md) for every field, property type, trigger format, and behavior value.
 
 #### 1. Start from skeleton
 
@@ -71,7 +71,7 @@ Replace the `REPLACE_ME` tokens: `author`, `published`, tags, and output folder.
 
 Start with the strongest variable type, fall back through weaker ones (schema → meta → selector → prompt).
 
-**Done when:** Every variable resolves to a non-empty value when tested against a real page from the platform. See [references/variable-reference.md](references/variable-reference.md) for full syntax.
+**Done when:** Every variable resolves to a non-empty value when tested against a real page from the platform. See [references/template-reference.md](references/template-reference.md) for full syntax.
 
 #### 4. Adapt note content format
 
@@ -147,7 +147,7 @@ Rank by reliability:
 
 ### JSON won't import
 
-`properties` must be an array, not an object. See [references/template-json-reference.md](references/template-json-reference.md) for the full schema.
+`properties` must be an array, not an object. See [references/template-reference.md](references/template-reference.md) for the full schema.
 
 ### Old field names
 
@@ -159,7 +159,7 @@ Rank by reliability:
 
 ### Property types
 
-Each property needs a `type`: `text`, `multitext`, `date`, `checkbox`, `number`. See [references/template-json-reference.md](references/template-json-reference.md).
+Each property needs a `type`: `text`, `multitext`, `date`, `checkbox`, `number`. See [references/template-reference.md](references/template-reference.md).
 
 ### Filter gotchas
 
