@@ -7,7 +7,7 @@
 [![skills.sh](https://img.shields.io/badge/skills.sh-andarwaly%2Fskills-blue?style=flat-square)](https://skills.sh)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
-[Installation](#installation) • [Skills](#skills) • [Usage](#usage) • [Writing skills](#writing-skills)
+[Installation](#installation) • [Updating](#updating) • [Skills](#skills) • [Usage](#usage) • [Writing skills](#writing-skills)
 
 </div>
 
@@ -21,16 +21,36 @@ npx skills add andarwaly/skills
 
 This registers the collection with your skills.sh CLI. Skills auto-index from CLI telemetry, so nothing needs manual submission.
 
+Once the collection has more than one skill, install just one by pointing at its subpath instead of the whole repo:
+
+```bash
+npx skills add https://github.com/andarwaly/skills/tree/main/<skill-name>
+```
+
 > [!TIP]
 > Run `skills list` after adding the repo to see what's available.
 
+## Updating
+
+```bash
+npx skills update
+```
+
+Pulls the latest version of every installed skill from this collection. To update just one:
+
+```bash
+npx skills update obsidian-web-clipper
+```
+
+Updates are pull-based, there's no background auto-update; run this whenever you want the current version.
+
 ## Skills
 
-| Skill | Description |
-|---|---|
-| [obsidian-web-clipper](./obsidian-web-clipper) | Build Web Clipper templates, inspect pages for variables, debug extraction failures |
+| Skill | Version | Description |
+|---|---|---|
+| [obsidian-web-clipper](./obsidian-web-clipper) | 1.0.0 | Build Web Clipper templates, inspect pages for variables, debug extraction failures |
 
-More in progress: a POE2 build planner, a skill-factory router.
+More in progress, grouped by domain as they land: a POE2 build planner, a skill-factory router.
 
 ## Usage
 

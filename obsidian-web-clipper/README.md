@@ -5,9 +5,10 @@
 *Build Obsidian Web Clipper templates for any website*
 
 [![skills.sh](https://img.shields.io/badge/skills.sh-andarwaly%2Fskills-blue?style=flat-square)](https://skills.sh)
+[![Version](https://img.shields.io/badge/version-1.0.0-informational?style=flat-square)](SKILL.md)
 [![Spec](https://img.shields.io/badge/Spec-agentskills.io-green?style=flat-square)](https://agentskills.io)
 
-[Installation](#installation) • [Usage](#usage) • [Structure](#structure)
+[Installation](#installation) • [Updating](#updating) • [Usage](#usage) • [Structure](#structure)
 
 </div>
 
@@ -29,6 +30,14 @@ npx skills add andarwaly/skills
 ```
 
 Skills auto-index from CLI telemetry, so once the collection is registered your agent picks up `obsidian-web-clipper` the next time a request matches its trigger: creating a template, inspecting a page, or debugging an import error.
+
+## Updating
+
+```bash
+npx skills update obsidian-web-clipper
+```
+
+Pull-based only, there's no version pinning; this always fetches whatever is current on `main`.
 
 ## Usage
 

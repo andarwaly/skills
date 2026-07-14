@@ -3,6 +3,9 @@ name: obsidian-web-clipper
 description: >-
   Use when creating Web Clipper templates for a website, inspecting pages
   for available variables, or debugging extraction failures and import errors.
+license: MIT
+metadata:
+  version: "1.0.0"
 ---
 
 # Obsidian Web Clipper
