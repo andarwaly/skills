@@ -116,5 +116,6 @@ Full Web Clipper settings exports leak interpreter API keys in plaintext (`inter
 | [references/filter-reference.md](references/filter-reference.md) | Full filter reference with gotchas |
 | [references/common-platform-variables.md](references/common-platform-variables.md) | Known extraction patterns for 10+ platforms |
 | [references/page-inspection.md](references/page-inspection.md) | Discover selectors/schema on an unlisted platform |
+| [references/interpreter-context.md](references/interpreter-context.md) | How `context` scopes Interpreter input per template |
 | [references/gotchas.md](references/gotchas.md) | Common errors and solutions |
 | [examples/](examples/) | Complete template JSON files, ready to reference |

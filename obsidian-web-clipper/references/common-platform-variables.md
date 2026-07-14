@@ -231,7 +231,7 @@ SPA, no schema.org. Meta tags only. Use prompt variables for content extraction.
 | Description | `{{meta:property:og:description}}` |
 | Source URL | `{{url}}` |
 
-Consider using `context` to scope Interpreter input.
+Set `context` in the template JSON to scope Interpreter input. See [interpreter-context.md](interpreter-context.md) for patterns and guidance.
 
 ## Documentation sites (MDN, ReadTheDocs, etc.)
 
