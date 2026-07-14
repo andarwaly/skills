@@ -34,12 +34,12 @@ Format tokens: `YYYY`, `MM`, `DD`, `HH`, `mm`, `ss`. Duration tokens: `HH`, `H`,
 
 ## Gotchas
 
-- **`date` must be last** when chained — `{{published\|trim\|date:"YYYY-MM-DD"}}`
-- **`replace` quoting** — unquoted `replace:old:new` fails silently. Regex: `/pattern/flags`
-- **No capture groups** in `replace` — chain multiple calls instead
+- **`date` must be last** when chained: `{{published\|trim\|date:"YYYY-MM-DD"}}`
+- **`replace` quoting**: unquoted `replace:old:new` fails silently. Regex: `/pattern/flags`
+- **No capture groups** in `replace`: chain multiple calls instead
 - **`callout`** parameters: type (default `info`), title (default empty), fold (boolean or null)
-- **`duration` auto-format** — `HH:mm:ss` over 1 hour, `mm:ss` under
-- **`list:numbered-task`** — task list with numbers
-- **`table` custom headers** — `table:("Col1","Col2")`
+- **`duration` auto-format**: `HH:mm:ss` over 1 hour, `mm:ss` under
+- **`list:numbered-task`**: task list with numbers
+- **`table` custom headers**: `table:("Col1","Col2")`
 
 Full reference: [obsidianmd/obsidian-clipper/tree/main/docs](https://github.com/obsidianmd/obsidian-clipper/tree/main/docs)

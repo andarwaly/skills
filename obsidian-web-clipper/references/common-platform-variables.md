@@ -20,8 +20,9 @@ Triggers: URL prefixes for watch pages:
 "triggers": ["https://www.youtube.com/", "https://youtube.com/", "https://youtu.be/"]
 ```
 
-
 **Transcript:** Requires opening the transcript panel before clipping. Use `{{transcript}}` (preset) or `{{selectorHtml:.ytd-transcript-segment-list-renderer\|markdown}}` (selector). Needs user to click More → Show Transcript first.
+
+## Medium
 
 Preset variables (`{{author}}`, `{{published}}`) work. No JSON-LD schema.
 
@@ -152,7 +153,6 @@ Schema-rich (`schema:@PodcastEpisode`).
 | Description | `{{schema:@PodcastEpisode:description}}` |
 | Cover | `{{schema:@PodcastEpisode:thumbnailUrl}}` |
 
-
 Trigger:
 ```json
 "triggers": ["https://podcasts.apple.com/"]
@@ -208,7 +208,6 @@ Trigger:
 "triggers": ["https://www.threads.net/"]
 ```
 
-
 ## Hacker News
 
 | Field | Variable |
@@ -225,7 +224,7 @@ Trigger:
 
 ## Perplexity
 
-SPA — no schema.org. Meta tags only. Use prompt variables for content extraction.
+SPA, no schema.org. Meta tags only. Use prompt variables for content extraction.
 
 | Field | Variable |
 |-------|----------|

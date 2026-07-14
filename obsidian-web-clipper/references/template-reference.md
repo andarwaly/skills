@@ -13,7 +13,7 @@ Schema fields, variable types, and template logic for Obsidian Web Clipper.
 | `noteNameFormat` | No | string | File name pattern. Supports variables and filters |
 | `path` | No | string | Folder (`create`) or full file path (`append-specific`) |
 | `triggers` | No | string[] | URL prefixes, regex (`/pattern/`), or schema.org (`schema:@Type`, `schema:@Type.key=value`) |
-| `context` | No | string | Scopes Interpreter input — `{{selectorHtml:article\|markdown\|trim}}` |
+| `context` | No | string | Scopes Interpreter input, e.g. `{{selectorHtml:article\|markdown\|trim}}` |
 | `properties` | No | array | Frontmatter property definitions |
 
 ### Properties
@@ -77,7 +77,7 @@ Schema fields, variable types, and template logic for Obsidian Web Clipper.
 
 ### Fallbacks
 
-`{{title ?? "Untitled"}}` — uses first non-empty value. Filters bind before `??`.
+`{{title ?? "Untitled"}}` uses the first non-empty value. Filters bind before `??`.
 
 ### Filters
 

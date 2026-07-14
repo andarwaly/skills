@@ -60,8 +60,8 @@ Verify the type on the actual page before writing `{{schema:@Type:field}}`:
 ## Highlights vs Content
 
 When the user highlights text on the page before clipping:
-- `{{highlights}}` — the selected text
-- `{{content}}` — the full auto-extracted content (does NOT switch to highlights)
+- `{{highlights}}`: the selected text
+- `{{content}}`: the full auto-extracted content (does NOT switch to highlights)
 
 To handle both:
 ```
@@ -102,3 +102,7 @@ The rule: count how many JSON string boundaries the quote crosses. Each boundary
 **Twitter/X:**
 - Preview only without login
 - Use highlights for full thread capture
+
+## Security
+
+Full Web Clipper settings exports contain interpreter API keys in plaintext (`interpreter_settings.providers[].apiKey`). Never commit a full export to version control.
