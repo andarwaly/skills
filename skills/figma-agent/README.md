@@ -11,3 +11,4 @@ Each skill here is a single flat `skills/figma-agent/<skill-name>/SKILL.md` — 
 - [rename-design-frame](rename-design-frame/SKILL.md) — rename frames, sections, and subsections to follow the full-ancestor-chain naming convention.
 - [organize-design-file](organize-design-file/SKILL.md) — lay out a Section's Core Flow / Edge Case / Error Case bands, apply band colors and typography, position and space frames.
 - [wire-user-flow-connectors](wire-user-flow-connectors/SKILL.md) — clone and position connector arrows between frames per contextual-origin rules.
+- [suggest-flow-coverage](suggest-flow-coverage/SKILL.md) — suggest Core Flow, Edge Case, and Error Case coverage for a concept once it's ready to leave exploration.
