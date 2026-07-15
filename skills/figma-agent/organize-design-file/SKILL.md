@@ -14,7 +14,7 @@ Determine the mode before doing anything else: if the frames represent steps a u
 
 ## Flow Mode: The Bands
 
-- **Core Flow** (top): a sequence, not a row. Left→right = step order. A fork/branch off a step cascades diagonally down-and-right, offset **+300px** from the origin frame's left edge, one new row per branch depth. The Section's overall width is set by the Core Flow band alone; nothing else widens it.
+- **Core Flow** (top): a sequence, not a row. Left→right = step order. A fork/branch off a step cascades diagonally down-and-right, starting a new row whose leftmost frame sits at the origin frame's **right edge + 300px** (i.e. left edge + frame width + 300px, not left edge + 300px, which would overlap the origin frame's own footprint). All sibling branches off the same origin share that same starting column, each in its own row. The Section's overall width is set by the Core Flow band alone; nothing else widens it.
 - **Edge Case** (middle): a flat collection, not sequenced. Frames wrap to a new row once they hit the width the Core Flow band already set. Order within the band carries no meaning; group frames from the same originating branch close together instead (see Frame Spacing below).
 - **Error Case** (bottom): same flat-collection treatment as Edge Case.
 
@@ -29,7 +29,7 @@ The two 300px entries below are unrelated conventions that happen to share a num
 | Section boundary padding | 240px | Section edge to first frame/header, all sides |
 | Header → first frame row | 360px | Below Title/Subtitle, before the first frame-title label |
 | Inter-band gap | 240px | Core Flow → Edge Case, Edge Case → Error Case |
-| Core Flow branch offset | 300px | Diagonal-cascade horizontal offset, per branch depth (see The Bands above) |
+| Core Flow branch offset | 300px gap (total offset = origin frame width + 300px) | Diagonal-cascade horizontal offset, measured from the origin frame's right edge, not its left edge (see The Bands above) |
 | Flat-band frame-to-frame, same context | 300px | Two Edge/Error frames from the same originating branch |
 | Flat-band frame-to-frame, different context | 600px | Two adjacent Edge/Error frames from different originating branches; the doubled gap signals the cluster break |
 
