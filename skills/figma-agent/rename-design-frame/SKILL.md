@@ -1,6 +1,6 @@
 ---
 name: rename-design-frame
-description: Rename Figma frames, sections, and subsections so every name traces back through its full ancestor chain. Use when frame or section names are inconsistent, missing, duplicated, or need to reflect their Core Flow / Edge Case / Error Case origin, or when asked to "clean up naming", "fix frame names", "standardize section names", "rename these frames", "find duplicate frame names".
+description: Rename Figma frames, sections, and subsections so every name traces back through its full ancestor chain. Use when frame or section names are inconsistent, missing, duplicated, or need to reflect their Core Flow / Edge Case / Error Case origin or design-exploration option (A/B/C), or when asked to "clean up naming", "fix frame names", "standardize section names", "rename these frames", "find duplicate frame names", "name these design options".
 ---
 
 # Rename Design Frame
@@ -16,14 +16,34 @@ A name is a traceable chain: Section, branch, condition, read left to right, not
 
 ## Edge Case / Error Case Naming
 
-Naming-only distinction: the frame's chain names its originating branch and condition, but the frame still lives physically inside its Section's `Edge Cases` or `Error Cases` subsection (see `/organize-design-file` for the physical grouping).
+Naming-only distinction: the frame's chain names its originating branch (when the condition is scoped to one) and condition, but the frame still lives physically inside its Section's `Edge Cases` or `Error Cases` subsection (see `/organize-design-file` for the physical grouping).
+
+**Edge Case drops the marker.** The condition itself already reads as context (`Empty`, `Zero Results`), so no `Edge` segment is added:
 
 ```
-<Section> - <OriginatingBranch> - Edge - <Condition>
+<Section> - <Condition>
+<Section> - <OriginatingBranch> - <Condition>
+```
+
+Example: `Project - Empty` (a Section-wide condition, no specific branch), or `Project - Filter - Zero Results` (scoped to the "Filter" branch).
+
+**Error Case keeps the marker.** Failures need the explicit callout so a frame named out of context still reads as a failure, not an alternate valid state:
+
+```
 <Section> - <OriginatingBranch> - Error - <Condition>
 ```
 
 Example: an error in the "Create" flow of "Project" becomes `Project - Create - Error - Submission Failed`, and lives inside the `Error Cases` subsection under `Project`.
+
+## Option Naming (Design Exploration)
+
+A bare trailing letter (`A`, `B`, `C`...) means a design-exploration variant, not an Edge/Error marker or a typo. Never "correct" it into something else.
+
+```
+<Section> - <Feature> - <OptionLetter>
+```
+
+Example: `360 - Cycle List - A`, `360 - Cycle List - B`. See `/organize-design-file`'s Option Mode for how these get grouped into Subsections.
 
 ## Workflow
 
