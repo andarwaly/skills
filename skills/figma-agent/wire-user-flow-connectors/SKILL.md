@@ -1,6 +1,6 @@
 ---
 name: wire-user-flow-connectors
-description: Draw connector arrows between Figma frames to represent a user flow, cloning from an existing connector template and positioning per contextual-origin rules. Use when connecting screens in a user flow diagram, wiring frames together, or asked to "connect these screens", "add flow arrows", "wire up the flow", "draw connectors between these frames".
+description: Draw connector arrows between Figma frames to represent a user flow, cloning from an existing connector template and positioning per the sequential, element-triggered, or branch-cascade attachment rules. Use when connecting screens in a user flow diagram, wiring frames together, or asked to "connect these screens", "add flow arrows", "wire up the flow", "draw connectors between these frames", "connect this branch to the flow".
 ---
 
 # Wire User Flow Connectors
@@ -43,10 +43,26 @@ A clone inherits its template's endpoints. Both `connectorStart` and `connectorE
 
 ## Positioning Rules
 
-- **Contextual origin**: start from the specific UI element that triggers the transition (a button, dropdown, row, tab), not generically from the frame edge. A magnet on the parent frame carries no information about *what* triggers the flow.
-- **Staggered spacing**: when multiple connectors exit the same source, use `{ endpointNodeId, position: { x, y } }` with distinct coordinates instead of a shared `magnet`, so lines never stack on top of each other.
+Three distinct connector purposes, each with its own attachment rule. Identify which one applies before wiring, a rule from the wrong case is the most common way a connector ends up floating disconnected from the frames it's meant to link.
+
+**1. Sequential**: plain left-to-right steps within one row (e.g. `Edit → Edit - Changed → Edit - Updated`). One connector per frame edge, so a shared magnet is unambiguous:
+
+- `magnet: "RIGHT"` on the origin, `magnet: "LEFT"` on the target.
+
+**2. Element-triggered**: one specific UI element causes the transition (a button click opens a modal, a dropdown selection changes state). There is a real, singular trigger, so attach there, not to the frame's generic edge:
+
+- **Contextual origin**: start from the specific element that triggers the transition (a button, dropdown, row, tab). A magnet on the parent frame carries no information about *what* triggers the flow.
 - **Accessible-parent fallback**: when the trigger element is nested too deep to attach directly (inside a component instance), attach to the nearest accessible ancestor and use `position` coordinates calculated relative to it.
-- **Magnets for simple sequences**: plain left-to-right, one-connector-per-edge steps within a row can use `magnet: "RIGHT"` → `magnet: "LEFT"`; reserve position-based endpoints for anything branching.
+
+**3. Branch-cascade**: a whole row forks off another row (`organize-design-file`'s diagonal-cascade branches). There is no single triggering element for an entire row, it's a structural relationship between two rows, not one user action, so element-hunting is the wrong move here. Attach frame-to-frame instead:
+
+- **Specific forking frame, not always the row's first frame**: identify the exact frame within the parent row that this branch forks from, per the diagonal-cascade rule (a fork originates from the step directly above-left of it, which may be mid-row, not necessarily that row's first frame). Attach the connector's start there, `magnet: "RIGHT"` (or `"AUTO"` if the fork lands below rather than beside it).
+- **Target is the branch row's first frame**, `magnet: "LEFT"`.
+- **Fan-out staggering**: when one origin frame is the fork point for *multiple* branch rows (a single Section origin commonly forks into several branches at once), a shared `magnet: "RIGHT"` stacks every connector at the same point. Use `{ endpointNodeId, position: { x, y } }` on the origin instead, with a distinct `y` per branch, so each line visibly departs from a different point along the origin's edge.
+- This rule applies recursively: a nested branch (a row-level action only reachable from within a parent row, e.g. a "more menu" action) is wired the same way, from its specific originating frame to its own branch row's first frame, regardless of nesting depth.
+
+## Shared Rule
+
 - **Cross-section links** originate only from Core Flow band frames (never Edge or Error, see `/organize-design-file`), and get the connector's `.name` and `.text.characters` set to describe the trigger (e.g. "via project name click") so the link stays traceable.
 
 ## Labels and Style
