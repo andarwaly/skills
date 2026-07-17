@@ -1,66 +1,106 @@
-# Skill Factory
+# DOX framework
 
-Build curated agent skill packages. Repo: `andarwaly/andarwaly-skills`. Distribute via skills.sh. Free.
+- DOX is highly performant AGENTS.md hierarchy installed here
+- Agent must follow DOX instructions across any edits
 
-## Project Structure
+## Core Contract
+
+- AGENTS.md files are binding work contracts for their subtrees
+- Work products, source materials, instructions, records, assets, and durable docs must stay understandable from the nearest applicable AGENTS.md plus every parent AGENTS.md above it
+
+## Read Before Editing
+
+1. Read the root AGENTS.md
+2. Identify every file or folder you expect to touch
+3. Walk from the repository root to each target path
+4. Read every AGENTS.md found along each route
+5. If a parent AGENTS.md lists a child AGENTS.md whose scope contains the path, read that child and continue from there
+6. Use the nearest AGENTS.md as the local contract and parent docs for repo-wide rules
+7. If docs conflict, the closer doc controls local work details, but no child doc may weaken DOX
+
+Do not rely on memory. Re-read the applicable DOX chain in the current session before editing.
+
+## Update After Editing
+
+Every meaningful change requires a DOX pass before the task is done.
+
+Update the closest owning AGENTS.md when a change affects:
+
+- purpose, scope, ownership, or responsibilities
+- durable structure, contracts, workflows, or operating rules
+- required inputs, outputs, permissions, constraints, side effects, or artifacts
+- user preferences about behavior, communication, process, organization, or quality
+- AGENTS.md creation, deletion, move, rename, or index contents
+
+Update parent docs when parent-level structure, ownership, workflow, or child index changes. Update child docs when parent changes alter local rules. Remove stale or contradictory text immediately. Small edits that do not change behavior or contracts may leave docs unchanged, but the DOX pass still must happen.
+
+## Hierarchy
+
+- Root AGENTS.md is the DOX rail: project-wide instructions, global preferences, durable workflow rules, and the top-level Child DOX Index
+- Child AGENTS.md files own domain-specific instructions and their own Child DOX Index
+- Each parent explains what its direct children cover and what stays owned by the parent
+- The closer a doc is to the work, the more specific and practical it must be
+
+## Child Doc Shape
+
+- Create a child AGENTS.md when a folder becomes a durable boundary with its own purpose, rules, responsibilities, workflow, materials, or quality standards
+- Work Guidance must reflect the current standards of the project or user instructions; if there are no specific standards or instructions yet, leave it empty
+- Verification must reflect an existing check; if no verification framework exists yet, leave it empty and update it when one exists
+
+Default section order:
+- Purpose
+- Ownership
+- Local Contracts
+- Work Guidance
+- Verification
+- Child DOX Index
+
+## Style
+
+- Keep docs concise, current, and operational
+- Document stable contracts, not diary entries
+- Put broad rules in parent docs and concrete details in child docs
+- Prefer direct bullets with explicit names
+- Do not duplicate rules across many files unless each scope needs a local version
+- Delete stale notes instead of explaining history
+- Trim obvious statements, repeated rules, misplaced detail, and warnings for risks that no longer exist
+
+## Closeout
+
+1. Re-check changed paths against the DOX chain
+2. Update nearest owning docs and any affected parents or children
+3. Refresh every affected Child DOX Index
+4. Remove stale or contradictory text
+5. Run existing verification when relevant
+6. Report any docs intentionally left unchanged and why
+
+## Project
+
+Andarwa Skills — Skill Factory. Build curated agent skill packages. Repo: `andarwaly/andarwaly-skills`. Distribute via skills.sh. Free.
+
+### Directory Structure
 
 ```
-skills/          # Skill packages, one folder per skill with SKILL.md
-research/        # Market research, top-10 analysis, competitor notes
+skills/                 # skill buckets — see skills/AGENTS.md
+.agents/                # ADRs and maintainer docs
+discussion/             # Research and decision context, grouped by topic (gitignored)
+.out-of-scope/          # Explicitly excluded scope decisions
+docs/                   # Human-facing docs per promoted bucket
+scripts/                # Development scripts
 ```
 
-Skills in `skills/` are for distribution only. Never install them into local pi or global agent directories. They stay here.
+Skill format, bucket rules (promoted/non-promoted), writing workflow, docs, plugin manifests, and distribution are owned by `skills/AGENTS.md` — read it before touching anything under `skills/`.
 
-## Skill Format
+### Research
 
-Follow the [agentskills.io](https://agentskills.io) spec. A skill is a directory with `SKILL.md`:
+Findings live in `discussion/`, grouped into topic subfolders. Capture to vault with `raw_clip`, then distill to Wiki on explicit instruction.
 
-```yaml
----
-name: skill-name
-description: What it does and when to use it. Pack with trigger phrases.
----
-```
+## User Preferences
 
-Optional: `license`, `metadata` (author, version). Optional dirs: `scripts/`, `references/`, `assets/`.
+- AI commits use `Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>` (set 2026-07-17; supersedes the prior `Aldric <noreply@andarwaly.dev>` convention).
 
-Use standard format only: name plus description. Skip Claude Code extensions (`$ARGUMENTS`, `context: fork`, `allowed-tools`) unless you are shipping CC-only. The top 10 skills on skills.sh use zero extensions.
+## Child DOX Index
 
-## Writing Skills
-
-Two phases: write, then review. Do not skip the review pass.
-
-### Write
-Load `humanizer` and `write-a-skill`. Pull format findings from vault memory (top-10 patterns, skillsdirectory.com guidelines, description keyword density research). Draft the skill: structure from write-a-skill, prose filtered through humanizer, decisions grounded in the research.
-
-### Review
-Audit the draft through two lenses:
-- **Matt Pocock's framework** — is this skill stateless or stateful? Did we make the right call? If stateful, does the workspace structure (lessons, records, glossary) hold up across sessions?
-- **writing-great-skills** — run the full audit. Completion criteria checkable? Any premature completion risk? Leading words pulling their weight? No-ops deleted? Information hierarchy right (what's inline vs disclosed)?
-
-## Skill Design
-
-First question for every skill: stateless or stateful?
-
-Stateless skills are pure input to output. No filesystem writes. Example: `grill me` grills you about a topic and stops. Stateful skills save to the filesystem, track progress across sessions, and get better over time. Example: `teach` creates a workspace with lesson files, learning records, and a glossary.
-
-Neither is better. Pick based on use case.
-
-## Distribution
-
-Publish to a public GitHub repo. Users install with `npx skills add owner/repo`. Skills.sh auto-indexes from CLI telemetry. No manual submission. Install count determines leaderboard rank.
-
-## Research
-
-Findings live in `research/`. Capture to vault with `raw_clip`, then distill to Wiki on explicit instruction.
-
-## Commit Attribution
-
-AI commits include:
-```
-Co-Authored-By: Aldric <noreply@andarwaly.dev>
-```
-
-## Memory
-
-Project hub: `Memory/2026-06-23-skill-factory-project-hub.md`. Update as scope grows.
+- `skills/AGENTS.md` — skill format, bucket rules, writing workflow, docs, plugin manifests, distribution (has its own Child DOX Index, incl. `skills/figma-agent/AGENTS.md`)
+- `discussion/AGENTS.md` — research and decision-context capture, grouped by topic (gitignored, local-only)
+- `docs/`, `scripts/`, `.agents/`, `.out-of-scope/` — no child AGENTS.md yet; governed directly by this root doc, no local rules beyond it
