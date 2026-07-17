@@ -3,4 +3,5 @@
 *.log
 tmp-*
 *.nested-backup
-research/
+discussion/
+node_modules/
