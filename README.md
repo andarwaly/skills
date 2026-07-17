@@ -24,7 +24,7 @@ This registers the collection with your skills.sh CLI. Skills auto-index from CL
 Once the collection has more than one skill, install just one by pointing at its subpath instead of the whole repo:
 
 ```bash
-npx skills add https://github.com/andarwaly/skills/tree/main/<skill-name>
+npx skills add https://github.com/andarwaly/skills/tree/main/skills/<bucket>/<skill-name>
 ```
 
 > [!TIP]
@@ -48,15 +48,13 @@ Updates are pull-based, there's no background auto-update; run this whenever you
 
 | Skill | Version | Description |
 |---|---|---|
-| [obsidian-web-clipper](./obsidian-web-clipper) | 1.0.0 | Build Web Clipper templates, inspect pages for variables, debug extraction failures |
-
-More in progress, grouped by domain as they land: a POE2 build planner, a skill-factory router.
+| [obsidian-web-clipper](./skills/obsidian/obsidian-web-clipper) | 1.0.0 | Build Web Clipper templates, inspect pages for variables, debug extraction failures |
 
 ## Usage
 
 Each skill is a directory with a `SKILL.md` at its root. When a request matches its trigger phrases, your agent loads the skill automatically, no manual invocation needed unless the skill says otherwise.
 
-For example, once `obsidian-web-clipper` is installed, asking your agent to *"build a Web Clipper template for Substack"* is enough to run its full workflow: gathering context from your vault, wiring the template, and delivering an importable `.json`. See the [skill's own README](./obsidian-web-clipper) for details.
+For example, once `obsidian-web-clipper` is installed, asking your agent to *"build a Web Clipper template for Substack"* is enough to run its full workflow: gathering context from your vault, wiring the template, and delivering an importable `.json`. See the [skill's own README](./skills/obsidian/obsidian-web-clipper) for details.
 
 ## Writing skills
 

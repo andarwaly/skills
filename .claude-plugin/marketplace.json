@@ -4,7 +4,7 @@
       "name": "Productivity",
       "source": "./",
       "skills": [
-        "./obsidian-web-clipper"
+        "./skills/obsidian/obsidian-web-clipper"
       ]
     }
   ]
