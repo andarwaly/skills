@@ -50,7 +50,7 @@ Run the humanizer pass on the finished Claim and Take prose before writing eithe
 
 ## 7. Write
 
-Write incrementally, not all at once: append the Claim once Phase A is fixed, append the Take once Phase B is fixed. Re-read the note file from disk immediately before each write. Derive the filename from the finished claim text, in the vault's own casing convention, with no author prefix.
+Write incrementally, not all at once: append the Claim once Phase A is fixed, append the Take once Phase B is fixed. Re-read the note file from disk immediately before each write. Use the filename and frontmatter conventions in `.agents/slipbox/vault-conventions.md`: derive the filename from the finished claim text, in the vault's own casing convention, with no author prefix, and apply that file's frontmatter fields to the written note.
 
 **On a filename collision:** stop and ask the user to reword the claim or confirm this is a genuine duplicate idea. Never auto-disambiguate the filename yourself.
 
@@ -60,6 +60,6 @@ Write incrementally, not all at once: append the Claim once Phase A is fixed, ap
 
 Once the note is written, flip that row's `status` to `discussed` and set `literature_note` to the file's path.
 
-If the user dismissed the candidate back in Step 2 instead of discussing it, set `status` to `dismissed` and leave `reason` untouched: no reason is ever written for a dismissal. This differs from `extract-idea`'s own dismissals, which are dropped before ever becoming a row.
+If the user dismissed the candidate back in Step 2 instead of discussing it, set `status` to `dismissed` and leave `reason` untouched: it already holds the question and motivation `extract-idea` wrote at extraction time, so there's nothing to add or blank. This differs from `extract-idea`'s own dismissals, which are dropped before ever becoming a row.
 
 CSV schema: see [`references/candidate-schema.md`](references/candidate-schema.md).

@@ -7,7 +7,7 @@ One CSV file per Resource, at `.agents/slipbox/candidates/<resource-slug>.csv`.
 | `slug` | Internal bookkeeping key. Never used as the literature note's filename. |
 | `status` | `pending` \| `discussed` \| `dismissed` |
 | `timestamp` | Set at extraction time, not updated later. |
-| `reason` | The question + motivation surfaced for this candidate. Blank for candidates dismissed at pick time (never written for a dismissal). |
+| `reason` | The question + motivation surfaced for this candidate, set once at extraction time. Stays unchanged if the candidate is later dismissed at pick time in `write-literature-note` — nothing is blanked, nothing new is written. Contrast with `extract-idea`'s own surface-time dismissals, which never create a row at all, so there's no reason to blank in the first place. |
 | `literature_note` | Path to the resulting note once `status` becomes `discussed`. Blank otherwise. |
 
 No separate index file exists. Queries:

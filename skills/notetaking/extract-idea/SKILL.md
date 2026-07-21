@@ -31,7 +31,7 @@ If a draft candidate reads like the first example, rewrite it as a question befo
 
 ## 3. Dismiss at surface time
 
-Some candidates that come up during the pass aren't worth keeping at all: too thin, too redundant with another candidate, or not really a question. Drop these before writing anything. A candidate dismissed here leaves no trace in the CSV. That's different from a candidate dismissed later, during `write-literature-note`'s pick step, which does get a row, with `status: dismissed` and no `reason`.
+Some candidates that come up during the pass aren't worth keeping at all: too thin, too redundant with another candidate, or not really a question. Drop these before writing anything. A candidate dismissed here leaves no trace in the CSV. That's different from a candidate dismissed later, during `write-literature-note`'s pick step, which does get a row, with `status: dismissed` and `reason` left exactly as it was written at extraction time.
 
 ## 4. Write
 
