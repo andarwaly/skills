@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Clip Resource
 
-For the case where the user has no Web Clipper, no Readwise, nothing installed: this skill fetches a URL directly and writes a Resource file that looks like Web Clipper's own output. It never touches `.agents/slipbox/candidates/` or takes part in the candidate pipeline; the one file it reads from that directory is `.agents/slipbox/vault-conventions.md`, for filename and frontmatter conventions, not pipeline bookkeeping. `extract-idea` reads the Resource file later; this skill's job ends once it's written.
+For the case where the user has no Web Clipper, no Readwise, nothing installed: this skill fetches a URL directly and writes a Resource file that looks like Web Clipper's own output. It never touches `.agents/slipbox/candidates/` or takes part in the candidate pipeline; the one file it reads from that directory is `.agents/slipbox/vault-conventions.md`, for filename and frontmatter conventions, not pipeline bookkeeping. `surface-ideas` reads the Resource file later; this skill's job ends once it's written.
 
 ## 1. Take the URL
 
@@ -25,7 +25,7 @@ Shape what you fetched into Web Clipper's format:
 - Entity sections where the content supports them: People, Tools, Resources, Definition.
 - For video, the full transcript.
 
-Stop there. Do not add a "Bud candidate" section, a "Further exploration" section, or any other line that names an idea worth pursuing or a conclusion about what the content means. Reading the material and forming an opinion on it is `extract-idea`'s Socratic stage, run later and separately. A Resource file that already contains a take skips that stage instead of feeding it.
+Stop there. Do not add a "Bud candidate" section, a "Further exploration" section, or any other line that names an idea worth pursuing or a conclusion about what the content means. Reading the material and forming an opinion on it is `surface-ideas`'s Socratic stage, run later and separately. A Resource file that already contains a take skips that stage instead of feeding it.
 
 ## 4. Write
 

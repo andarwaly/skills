@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Write Reference Note
 
-This skill writes or extends a reference note: a definition of a term, answering "what is X." It does not read the candidate CSVs and does not touch `.agents/slipbox/candidates/` at all; there is no clip to react to and no row to update. `write-literature-note` proposes links to reference notes while discussing a claim, and the user confirms each one there. This skill is the other half: where a reference note actually gets created or extended, whether or not that conversation ever happened.
+This skill writes or extends a reference note: a definition of a term, answering "what is X." It does not read the candidate CSVs and does not touch `.agents/slipbox/candidates/` at all; there is no clip to react to and no row to update. `discuss-idea` proposes links to reference notes while discussing a claim, and the user confirms each one there. This skill is the other half: where a reference note actually gets created or extended, whether or not that conversation ever happened.
 
 ## 1. Wait for the user to name a term
 
@@ -27,7 +27,7 @@ Ask the user which resource(s) prompted this term: the note they were reading, o
 
 Two things this is not:
 
-- **Not the user's own idea.** An argument, a take, a reaction the user wants to develop is `write-evergreen-note`'s job. If the conversation drifts into "here's what I think about X" rather than "here's what X is," note that this belongs in an evergreen note instead and keep this draft to the definition.
+- **Not the user's own idea.** An argument, a take, a reaction the user wants to develop is `discuss-connection`'s job. If the conversation drifts into "here's what I think about X" rather than "here's what X is," note that this belongs in an evergreen note instead and keep this draft to the definition.
 - **Not a citation record.** The source is there to anchor the definition, not to be the point of the note. A note that's mostly bibliographic detail with a thin definition attached has the emphasis backwards.
 
 Every definition here traces back to at least one resource. Record which resource(s) fed it as you go, so the note carries that link when it's written.

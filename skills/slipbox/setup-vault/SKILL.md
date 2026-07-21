@@ -1,6 +1,6 @@
 ---
 name: setup-vault
-description: One-time onboarding for the notetaking skill family — discovers vault conventions (filenames, frontmatter, templates) and writing style before any other skill in this family runs. Run once per vault; re-run only to change conventions or style.
+description: One-time onboarding for the slipbox skill family — discovers vault conventions (filenames, frontmatter, templates) and writing style before any other skill in this family runs. Run once per vault; re-run only to change conventions or style.
 disable-model-invocation: true
 ---
 
@@ -45,4 +45,4 @@ Draft `.agents/slipbox/vault-conventions.md` with both sections' confirmed resul
 
 ## 5. Done
 
-Tell the user setup is complete, name the file you wrote, and note that `clip-resource`, `extract-idea`, `write-literature-note`, `write-reference-note`, and `write-evergreen-note` all depend on it. Re-running this skill is only needed to change a convention or restart the writing style from scratch, not something to do routinely.
+Tell the user setup is complete, name the file you wrote, and note that `clip-resource`, `surface-ideas`, `discuss-idea`, `write-reference-note`, and `discuss-connection` all depend on it. Re-running this skill is only needed to change a convention or restart the writing style from scratch, not something to do routinely.

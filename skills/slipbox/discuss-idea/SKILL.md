@@ -1,12 +1,12 @@
 ---
-name: write-literature-note
-description: Conversational, Socratic discussion of one candidate idea — from a source's claim to a finished Claim/Take literature note. Reads candidates written earlier by extract-idea; can run in a separate session.
+name: discuss-idea
+description: Conversational, Socratic discussion of one candidate idea — from a source's claim to a finished Claim/Take literature note. Reads candidates written earlier by surface-ideas; can run in a separate session.
 disable-model-invocation: true
 ---
 
 # Write Literature Note
 
-This skill turns one candidate from `extract-idea` into a literature note through a real discussion, not a one-shot proposal the user rubber-stamps. Two phases, Claim then Take, each ends only when the user says so.
+This skill turns one candidate from `surface-ideas` into a literature note through a real discussion, not a one-shot proposal the user rubber-stamps. Two phases, Claim then Take, each ends only when the user says so.
 
 ## 1. Mode
 
@@ -60,6 +60,6 @@ Write incrementally, not all at once: append the Claim once Phase A is fixed, ap
 
 Once the note is written, flip that row's `status` to `discussed` and set `literature_note` to the file's path.
 
-If the user dismissed the candidate back in Step 2 instead of discussing it, set `status` to `dismissed` and leave `reason` untouched: it already holds the question and motivation `extract-idea` wrote at extraction time, so there's nothing to add or blank. This differs from `extract-idea`'s own dismissals, which are dropped before ever becoming a row.
+If the user dismissed the candidate back in Step 2 instead of discussing it, set `status` to `dismissed` and leave `reason` untouched: it already holds the question and motivation `surface-ideas` wrote at extraction time, so there's nothing to add or blank. This differs from `surface-ideas`'s own dismissals, which are dropped before ever becoming a row.
 
 CSV schema: see [`references/candidate-schema.md`](references/candidate-schema.md).

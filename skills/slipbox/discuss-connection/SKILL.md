@@ -1,5 +1,5 @@
 ---
-name: write-evergreen-note
+name: discuss-connection
 description: Manually-triggered — connect two or more existing notes (literature, reference, or other evergreen) into a new, purely original idea, when you've noticed a connection between them worth developing.
 disable-model-invocation: true
 ---
@@ -42,7 +42,7 @@ Run the humanizer pass on the finished note before writing it.
 
 Write incrementally: append to the file as the note develops rather than writing it all in one shot. Re-read the note file from disk immediately before each write.
 
-Derive the title from the connection actually reached, in the same claim-style convention `write-literature-note` uses for its Claim, not from the cited notes' titles. Use the filename and frontmatter conventions in `.agents/slipbox/vault-conventions.md`, and link back to every note that fed the connection.
+Derive the title from the connection actually reached, in the same claim-style convention `discuss-idea` uses for its Claim, not from the cited notes' titles. Use the filename and frontmatter conventions in `.agents/slipbox/vault-conventions.md`, and link back to every note that fed the connection.
 
 **On a filename collision:** stop and ask the user to reword the title or confirm this is a genuine duplicate idea. Never auto-disambiguate the filename yourself.
 

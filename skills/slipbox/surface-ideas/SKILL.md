@@ -1,6 +1,6 @@
 ---
-name: extract-idea
-description: Surface 5-10 discussion-worthy candidate ideas from a clipped Resource — explore, no structure committed yet. Does not write a literature note itself; that's write-literature-note's job, run separately.
+name: surface-ideas
+description: Surface 5-10 discussion-worthy candidate ideas from a clipped Resource — explore, no structure committed yet. Does not write a literature note itself; that's discuss-idea's job, run separately.
 disable-model-invocation: true
 ---
 
@@ -16,7 +16,7 @@ Ask for the path to an already-captured Resource file: one written by `clip-reso
 
 Read the Resource and surface 5-10 candidates. This is an explore pass, not an exploit pass: the goal is a spread of open questions worth discussing, not a shortlist of answers.
 
-Each candidate is a question plus the motivation for asking it. Neither half is a conclusion. A candidate that already states what the idea means, or what follows from it, has skipped past exploration into the discussion that's supposed to happen later, in `write-literature-note`. Watch for this shape and reject it:
+Each candidate is a question plus the motivation for asking it. Neither half is a conclusion. A candidate that already states what the idea means, or what follows from it, has skipped past exploration into the discussion that's supposed to happen later, in `discuss-idea`. Watch for this shape and reject it:
 
 > Reason: "Knowledge is most useful when broken into atomic, standalone ideas that can be freely recombined."
 
@@ -31,7 +31,7 @@ If a draft candidate reads like the first example, rewrite it as a question befo
 
 ## 3. Dismiss at surface time
 
-Some candidates that come up during the pass aren't worth keeping at all: too thin, too redundant with another candidate, or not really a question. Drop these before writing anything. A candidate dismissed here leaves no trace in the CSV. That's different from a candidate dismissed later, during `write-literature-note`'s pick step, which does get a row, with `status: dismissed` and `reason` left exactly as it was written at extraction time.
+Some candidates that come up during the pass aren't worth keeping at all: too thin, too redundant with another candidate, or not really a question. Drop these before writing anything. A candidate dismissed here leaves no trace in the CSV. That's different from a candidate dismissed later, during `discuss-idea`'s pick step, which does get a row, with `status: dismissed` and `reason` left exactly as it was written at extraction time.
 
 ## 4. Write
 
