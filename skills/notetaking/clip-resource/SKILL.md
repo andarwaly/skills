@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Clip Resource
 
-For the case where the user has no Web Clipper, no Readwise, nothing installed: this skill fetches a URL directly and writes a Resource file that looks like Web Clipper's own output. It never touches `.agents/slipbox/` — that's the candidate pipeline's territory, and this skill produces vault content, not pipeline bookkeeping. `extract-idea` reads the Resource file later; this skill's job ends once it's written.
+For the case where the user has no Web Clipper, no Readwise, nothing installed: this skill fetches a URL directly and writes a Resource file that looks like Web Clipper's own output. It never touches `.agents/slipbox/`, which is the candidate pipeline's territory; this skill produces vault content, not pipeline bookkeeping. `extract-idea` reads the Resource file later; this skill's job ends once it's written.
 
 ## 1. Take the URL
 
@@ -36,4 +36,4 @@ Save the file using the filename and frontmatter conventions recorded in `.agent
 Two valid endings, both explicit:
 
 - **Success**: the Resource file exists at its path, shaped per Step 3. Tell the user where it landed.
-- **Fetch failure**: the fetch returned an error, or returned content but it's a paywall teaser, a login wall, or otherwise not the real article or video. Report plainly what came back and why it looks incomplete, and stop there — do not write a partial Resource file, and do not attempt to work around the paywall or login gate. A clear failure report is a complete, correct run of this skill; a half-written Resource file is not.
+- **Fetch failure**: the fetch returned an error, or returned content but it's a paywall teaser, a login wall, or otherwise not the real article or video. Report plainly what came back and why it looks incomplete, and stop there. Do not write a partial Resource file, and do not attempt to work around the paywall or login gate. A clear failure report is a complete, correct run of this skill; a half-written Resource file is not.
