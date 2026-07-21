@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Clip Resource
 
-For the case where the user has no Web Clipper, no Readwise, nothing installed: this skill fetches a URL directly and writes a Resource file that looks like Web Clipper's own output. It never touches `.agents/slipbox/`, which is the candidate pipeline's territory; this skill produces vault content, not pipeline bookkeeping. `extract-idea` reads the Resource file later; this skill's job ends once it's written.
+For the case where the user has no Web Clipper, no Readwise, nothing installed: this skill fetches a URL directly and writes a Resource file that looks like Web Clipper's own output. It never touches `.agents/slipbox/candidates/` or takes part in the candidate pipeline; the one file it reads from that directory is `.agents/slipbox/vault-conventions.md`, for filename and frontmatter conventions, not pipeline bookkeeping. `extract-idea` reads the Resource file later; this skill's job ends once it's written.
 
 ## 1. Take the URL
 
