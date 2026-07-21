@@ -1,0 +1,40 @@
+{
+  "skill_name": "obsidian-web-clipper",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build me a Web Clipper template for Substack articles. I keep clips in Clippings/Substack, and I always tag things with #newsletter.",
+      "expected_output": "A structurally valid Web Clipper template JSON targeting Substack article URLs, with no unresolved REPLACE_ME tokens, author/published extracted via schema or meta before falling back to selectors, the newsletter tag present, and path set to Clippings/Substack.",
+      "assertions": [
+        "The output is a single JSON file",
+        "JSON parses without error and properties is an array, not an object",
+        "No REPLACE_ME token remains anywhere in the output",
+        "triggers matches substack.com article URLs and excludes the homepage/feed/settings pages",
+        "path resolves to Clippings/Substack",
+        "A tag or property containing 'newsletter' is present",
+        "author and published are extracted via schema or meta variables, not a raw CSS selector, unless the template notes schema/meta were unavailable"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "hey can you make a clipper template for youtube videos, i want the transcript in the note not just a link",
+      "expected_output": "A template targeting YouTube video URLs whose noteContentFormat includes transcript content, not just {{content}} or a bare link.",
+      "assertions": [
+        "JSON parses without error",
+        "No REPLACE_ME token remains anywhere in the output",
+        "triggers matches YouTube watch-page URLs and excludes the YouTube homepage/search/channel-list pages",
+        "noteContentFormat includes transcript-related content, not just a bare {{content}} or link"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Give me a template for some random blog at obscurewriter.example — it's not a platform you'd know, just look at the page and figure it out.",
+      "expected_output": "A template for an unlisted platform, produced by inspecting the live page's schema/meta/selectors rather than guessing, with every extraction field resolved to a real field and no REPLACE_ME left over — or an explicit statement that the page couldn't be inspected and manual selector input is needed.",
+      "assertions": [
+        "JSON parses without error, or the skill explicitly asks for selector/page details instead of guessing",
+        "No REPLACE_ME token remains anywhere in the delivered output",
+        "The skill's response references inspecting the actual page (schema, meta, or selector) rather than inventing values with no basis"
+      ]
+    }
+  ]
+}

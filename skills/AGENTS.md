@@ -45,7 +45,15 @@ Two phases per skill: write, then review. Do not skip the review pass.
 
 ## Verification
 
-(none yet)
+Every skill should carry `evals/evals.json` — test cases with `prompt`, `expected_output`, optional `files`, and `assertions` (objective, checkable claims only; reserve subjective quality — writing style, "feels right" — for human review instead of an assertion).
+
+- **Design**: start with 2-3 varied prompts (casual and precise phrasing), including at least one edge case. Add assertions after seeing a first run's output, not before.
+- **Run**: execute each test case twice, with the skill and without (or against the previous version), in a clean context each time — no leftover state from skill development.
+- **Grade**: PASS/FAIL per assertion with evidence (quote or reference the output). LLM judge for fuzzy assertions, a verification script for mechanical ones (valid JSON, file exists, row count).
+- **Aggregate**: track the with/without delta — pass rate, time, tokens. A skill that costs more but meaningfully raises pass rate is worth it; one that doubles cost for a marginal gain isn't.
+- **Iterate**: feed failed assertions, human feedback, and execution transcripts back into a `SKILL.md` revision. Generalize fixes rather than patching to the specific test case; prune instructions that don't move pass rate rather than stacking more rules.
+
+Source: [agentskills.io/skill-creation/evaluating-skills](https://agentskills.io/skill-creation/evaluating-skills).
 
 ## Child DOX Index
 
