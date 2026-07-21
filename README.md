@@ -46,9 +46,18 @@ Updates are pull-based, there's no background auto-update; run this whenever you
 
 ## Skills
 
+The install picker (`npx skills add`) shows every skill below under one flat "Andarwa Skills" group — the CLI has no supported way to split a single repo into multiple named groups. The two buckets below are a docs-only distinction.
+
+### Obsidian
+
 | Skill | Version | Description |
 |---|---|---|
 | [obsidian-web-clipper](./skills/obsidian/obsidian-web-clipper) | 1.0.0 | Build Web Clipper templates, inspect pages for variables, debug extraction failures |
+
+### Slipbox
+
+| Skill | Version | Description |
+|---|---|---|
 | [setup-vault](./skills/slipbox/setup-vault) | 1.0.0 | One-time onboarding — discovers vault conventions and writing style before any other slipbox skill runs |
 | [clip-resource](./skills/slipbox/clip-resource) | 1.0.0 | Fetch a URL and write it as a frozen Resource, for users without a clipper tool |
 | [surface-ideas](./skills/slipbox/surface-ideas) | 1.0.0 | Surface 5-10 discussion-worthy candidate ideas from a clipped Resource |
