@@ -2,9 +2,12 @@
 name: discuss-idea
 description: Conversational, Socratic discussion of one candidate idea — from a source's claim to a finished Claim/Take literature note. Reads candidates written earlier by surface-ideas; can run in a separate session.
 disable-model-invocation: true
+license: MIT
+metadata:
+  version: "1.0.0"
 ---
 
-# Write Literature Note
+# Discuss Idea
 
 This skill turns one candidate from `surface-ideas` into a literature note through a real discussion, not a one-shot proposal the user rubber-stamps. Two phases, Claim then Take, each ends only when the user says so.
 

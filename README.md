@@ -11,7 +11,7 @@
 
 </div>
 
-Free, well-crafted skill packages distributed through [skills.sh](https://skills.sh). Every skill here follows the [agentskills.io](https://agentskills.io) specification directly: minimal frontmatter, no Claude Code extensions, progressive disclosure into reference files instead of one giant instruction blob.
+Free, well-crafted skill packages distributed through [skills.sh](https://skills.sh). Every skill here follows the [agentskills.io](https://agentskills.io) specification directly: minimal frontmatter, no Claude-Code-only body syntax (`$ARGUMENTS`, `context: fork`, `allowed-tools`), progressive disclosure into reference files instead of one giant instruction blob. Frontmatter extensions like `disable-model-invocation` are used where they fit — they degrade gracefully on any harness that doesn't read them.
 
 ## Installation
 
@@ -49,6 +49,12 @@ Updates are pull-based, there's no background auto-update; run this whenever you
 | Skill | Version | Description |
 |---|---|---|
 | [obsidian-web-clipper](./skills/obsidian/obsidian-web-clipper) | 1.0.0 | Build Web Clipper templates, inspect pages for variables, debug extraction failures |
+| [setup-vault](./skills/slipbox/setup-vault) | 1.0.0 | One-time onboarding — discovers vault conventions and writing style before any other slipbox skill runs |
+| [clip-resource](./skills/slipbox/clip-resource) | 1.0.0 | Fetch a URL and write it as a frozen Resource, for users without a clipper tool |
+| [surface-ideas](./skills/slipbox/surface-ideas) | 1.0.0 | Surface 5-10 discussion-worthy candidate ideas from a clipped Resource |
+| [discuss-idea](./skills/slipbox/discuss-idea) | 1.0.0 | Socratic conversation from a candidate idea to a finished Claim/Take literature note |
+| [write-reference-note](./skills/slipbox/write-reference-note) | 1.0.0 | Manually-triggered definitional note for a recurring term or source |
+| [discuss-connection](./skills/slipbox/discuss-connection) | 1.0.0 | Connect two or more existing notes into a new, purely original idea |
 
 ## Usage
 
@@ -60,7 +66,7 @@ For example, once `obsidian-web-clipper` is installed, asking your agent to *"bu
 
 Two phases, and the second one isn't optional.
 
-1. **Write**: draft using the agentskills.io standard format. No Claude Code extensions. Pack the description with literal trigger phrases, not workflow summaries.
+1. **Write**: draft using the agentskills.io standard format. No Claude-Code-only body syntax. Pack the description with literal trigger phrases, not workflow summaries.
 2. **Review**: audit against writing-great-skills criteria. Completion criteria must be checkable, leading words must pull their weight, no-ops get deleted.
 
 See [AGENTS.md](./AGENTS.md) for the full factory workflow.

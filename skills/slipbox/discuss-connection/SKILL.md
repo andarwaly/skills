@@ -2,9 +2,12 @@
 name: discuss-connection
 description: Manually-triggered — connect two or more existing notes (literature, reference, or other evergreen) into a new, purely original idea, when you've noticed a connection between them worth developing.
 disable-model-invocation: true
+license: MIT
+metadata:
+  version: "1.0.0"
 ---
 
-# Write Evergreen Note
+# Discuss Connection
 
 This skill turns a connective aha into a new note that holds only the user's own idea, never a source's claim restated. There is no detector watching for connections; it starts only when the user brings one here.
 

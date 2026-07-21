@@ -2,9 +2,12 @@
 name: surface-ideas
 description: Surface 5-10 discussion-worthy candidate ideas from a clipped Resource — explore, no structure committed yet. Does not write a literature note itself; that's discuss-idea's job, run separately.
 disable-model-invocation: true
+license: MIT
+metadata:
+  version: "1.0.0"
 ---
 
-# Extract Idea
+# Surface Ideas
 
 This skill takes a Resource file and surfaces candidate ideas from it. It does not decide which candidate is worth writing up, and it does not write the literature note itself: that's a separate skill, run separately, possibly in a different session.
 

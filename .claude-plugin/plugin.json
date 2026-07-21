@@ -1,7 +1,7 @@
 {
   "name": "andarwaly-skills",
   "version": "1.0.0",
-  "description": "Curated agent skill packages by Andarwa — Obsidian, Figma, and productivity tools.",
+  "description": "Curated agent skill packages by Andarwa — Obsidian, Figma, productivity, and note-taking tools.",
   "author": {
     "name": "Andarwa",
     "url": "https://github.com/andarwaly"
@@ -9,6 +9,12 @@
   "repository": "https://github.com/andarwaly/skills",
   "license": "MIT",
   "skills": [
-    "./skills/obsidian/obsidian-web-clipper"
+    "./skills/obsidian/obsidian-web-clipper",
+    "./skills/slipbox/setup-vault",
+    "./skills/slipbox/clip-resource",
+    "./skills/slipbox/surface-ideas",
+    "./skills/slipbox/discuss-idea",
+    "./skills/slipbox/write-reference-note",
+    "./skills/slipbox/discuss-connection"
   ]
 }

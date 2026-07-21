@@ -2,6 +2,9 @@
 name: clip-resource
 description: Fetch a URL and write it as a frozen Resource, matching Obsidian Web Clipper's output shape — for users without a clipper tool. Fetchable content only; paywalled or login-gated pages are not handled by this skill.
 disable-model-invocation: true
+license: MIT
+metadata:
+  version: "1.0.0"
 ---
 
 # Clip Resource

@@ -2,6 +2,9 @@
 name: setup-vault
 description: One-time onboarding for the slipbox skill family — discovers vault conventions (filenames, frontmatter, templates) and writing style before any other skill in this family runs. Run once per vault; re-run only to change conventions or style.
 disable-model-invocation: true
+license: MIT
+metadata:
+  version: "1.0.0"
 ---
 
 # Setup Vault

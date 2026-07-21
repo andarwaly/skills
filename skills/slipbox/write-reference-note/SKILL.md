@@ -2,6 +2,9 @@
 name: write-reference-note
 description: Manually-triggered, definitional note for a term or source that recurs across your notes, or that you're simply curious about. Not tied to any single clip's outcome — grows over time as more resources touch it.
 disable-model-invocation: true
+license: MIT
+metadata:
+  version: "1.0.0"
 ---
 
 # Write Reference Note

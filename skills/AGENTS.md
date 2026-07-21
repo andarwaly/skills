@@ -19,9 +19,9 @@ Andarwa Skills maintainer. Skills here are for distribution only — never insta
   ---
   ```
 
-  Optional: `license`, `metadata` (author, version). Optional dirs: `scripts/`, `references/`, `assets/`. Standard format only — skip Claude Code extensions (`$ARGUMENTS`, `context: fork`, `allowed-tools`) unless shipping CC-only. The top 10 skills on skills.sh use zero extensions.
+  Optional: `license`, `metadata` (author, version). Optional dirs: `scripts/`, `references/`, `assets/`. Standard format only — skip Claude Code **body syntax** (`$ARGUMENTS`, `context: fork`, `allowed-tools`) unless shipping CC-only; those fail outright on other harnesses. Frontmatter extensions (e.g. `disable-model-invocation`) are fine even on non-CC-only skills — an unrecognized frontmatter key degrades gracefully everywhere and can hand richer context to any harness that does read it. The top 10 skills on skills.sh use zero body-syntax extensions.
 
-- **Buckets**: `obsidian/`, `figma/`, `productivity/` are promoted (appear in the top-level README, `docs/`, and `.claude-plugin/plugin.json`). `misc/` is non-promoted. `figma-agent/` status is undecided — see its own `AGENTS.md`.
+- **Buckets**: `obsidian/`, `figma/`, `productivity/`, `slipbox/` are promoted (appear in the top-level README, `docs/`, and `.claude-plugin/plugin.json`). `misc/` is non-promoted. `figma-agent/` status is undecided — see its own `AGENTS.md`.
 
 - **Bucket READMEs**: every bucket needs a README.md listing its skills with one-line descriptions linked to their SKILL.md. Promoted buckets format theirs using the User-invoked / Model-invoked grouping from the skill's own frontmatter convention.
 
@@ -50,4 +50,4 @@ Two phases per skill: write, then review. Do not skip the review pass.
 ## Child DOX Index
 
 - `figma-agent/AGENTS.md` — distinct distribution mechanism (Figma Custom Skills UI, not `npx skills add`) and unresolved promotion status
-- `obsidian/`, `figma/`, `productivity/`, `misc/` — no child AGENTS.md yet; governed directly by this doc, no local rules beyond it
+- `obsidian/`, `figma/`, `productivity/`, `misc/`, `slipbox/` — no child AGENTS.md yet; governed directly by this doc, no local rules beyond it
