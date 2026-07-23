@@ -3,5 +3,5 @@
 *.log
 tmp-*
 *.nested-backup
-discussion/
+/discussion/
 node_modules/
