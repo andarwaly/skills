@@ -14,6 +14,7 @@ Use this when you want to explore a connection between multiple notes, or work t
 4. **Discuss** — runs a Socratic conversation grounded in your vault's related notes (retrieved via full-text search). Retrieval, grounding, the purity rule (no mere restatement of cited notes), and the final rubric are all handled by the discussion skill.
 5. **Write the note** — once the Take is confirmed, writes the finished evergreen note with frontmatter (`type: evergreen`, `created`, `derived-from: [...]`) and cites each related note with a stated reason in the body.
 6. **Link the connections** — records which notes this one cites in `idea.db`, and updates the placeholder row with the final slug and path.
+7. **Revisiting an existing note** — you can bring an already-discussed evergreen note back for fresh thinking at any later time. The skill re-reads the note from disk, runs discussion again, and can rewrite the note's content wholesale (unlike reference notes, which only append). On completion, `iteration` increments and `status` returns to `discussed`.
 
 ## Usage
 
