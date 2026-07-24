@@ -10,11 +10,12 @@
   "license": "MIT",
   "skills": [
     "./skills/obsidian/obsidian-web-clipper",
-    "./skills/slipbox/setup-vault",
+    "./skills/slipbox/setup-slipbox",
     "./skills/slipbox/clip-resource",
     "./skills/slipbox/surface-ideas",
-    "./skills/slipbox/discuss-idea",
+    "./skills/slipbox/write-literature-note",
     "./skills/slipbox/write-reference-note",
-    "./skills/slipbox/discuss-connection"
+    "./skills/slipbox/write-evergreen-note",
+    "./skills/slipbox/discussion"
   ]
 }
