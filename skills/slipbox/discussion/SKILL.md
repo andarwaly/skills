@@ -29,9 +29,13 @@ Ask a single question, then wait for the user's answer before asking the next. N
 
 The agent never drafts the claim, definition, or connection. The whole assembly is built only from sentences the user actually typed. When the conversation calls for reflecting the emerging idea back ("distil" — see the evergreen section), that move quotes and lightly reshapes the user's own words for them to correct ("almost, actually…"). It never introduces phrasing of its own as if it were the content.
 
+**Why this is a rule for an LLM specifically, not just good practice:** a human research assistant drafting on someone's behalf would still be putting the *user's* thinking into words, because the assistant has no other source of ideas to draw on. An LLM does — it can generate fluent, plausible-sounding claims from its training data that were never actually the user's thought, and the user may not notice the substitution because the phrasing reads as reasonable. The whole point of a slipbox is that every note traces back to the user's own thinking; a claim ghostwritten by the model breaks that traceability even when the words happen to be correct.
+
 ### Gate: explicit confirmation only
 
 A claim, definition, or connection is fixed only when the user says something that explicitly confirms it — "yes, that's it," "fixed," or equivalent. Never infer the gate from a pause, a change of subject, or the conversation merely feeling settled.
+
+**Why this needs stating explicitly:** an LLM has a strong prior toward treating a topic change or a lull as tacit agreement, because moving on is the conversationally smooth thing to do — a human assistant reads hesitation or silence far more skeptically by default. Left unstated, the model will round an ambiguous moment up to "confirmed" and write down something the user never actually signed off on.
 
 ### Anti-summary guard
 
@@ -52,6 +56,7 @@ A vague or hand-wavy answer is not raw material to polish into something coheren
 idea_slug: <slug>
 mode: literature|reference|evergreen
 phase: <mode-specific phase name>
+resource: <resource slug(s), literature/reference modes only>
 updated_at: <ISO8601>
 ---
 
@@ -61,6 +66,8 @@ updated_at: <ISO8601>
 ## Open threads
 - ...
 ```
+
+`resource` carries whatever source(s) this session is grounding against (the one resource for literature mode, one or more for reference mode). It is what lets the calling skill resume a paused session without re-deriving that context from scratch — see each mode's own resume handling below. Evergreen mode omits it: the placeholder `evergreen` row it inserts already anchors the session by slug.
 
 **Write it as an explicit step**, not an assumption: at each point this file needs creating or updating, actually do it — "write/update the resume file now." There is no default reason for an LLM to persist a file it wasn't told to persist; treat this as a required action in the flow, every time, not a background habit.
 
@@ -113,7 +120,7 @@ Invoked by `write-reference-note`. Produces a definition, not a Claim — there 
 
 **Grounds against:** the raw resource(s) named for this term. Genuinely plural from the start is allowed — the user may name several resources touching the same term in one sitting.
 
-**On extension** (a new resource added to an already-existing reference note): ground against *two* things — the new resource, and the existing note's current confirmed content, re-read fresh from disk immediately before this conversation starts. Do not re-read the term's entire historical resource list; the note's own accumulated text is the working summary of everything before it.
+**On extension** (a new resource added to an already-existing reference note): ground against *two* things — the new resource, and the existing note's current confirmed content, re-read fresh from disk immediately before this conversation starts (the note may have been edited, extended by a different resource, or otherwise changed since it was last looked at — a stale in-memory copy would silently ground the conversation against content that no longer matches the file). Do not re-read the term's entire historical resource list; the note's own accumulated text is the working summary of everything before it.
 
 **No broad `idea.db` relevance search** in this mode (unlike evergreen). The existing-note lookup, if any, is a direct, exact match on the term — not a fuzzy or ranked query.
 

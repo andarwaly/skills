@@ -11,7 +11,15 @@ metadata:
 
 This skill writes or extends a reference note: a definition of a term, answering "what is X." No detector watches for recurrence and this skill never fires on its own — it starts only from one of the two trigger paths below. The actual conversation that produces the definition happens inside `discussion`, mode `reference`; this skill's job is framing that call correctly and handling the `seeds`/`links` bookkeeping around it.
 
-## 1. Trigger
+## 1. Resume check, first
+
+Before offering either trigger path below, list `.slipbox/discussions/` for files with `mode: reference` in their frontmatter. If any exist, offer to resume one before offering to start something new.
+
+**If resuming:** read `idea_slug` and `resource` straight off the resume file's frontmatter — the term and its named resource(s) — instead of running Step 1's trigger paths or Step 2's existing-note check from scratch. Pass them to `discussion` as the session's starting context per Step 3, along with the resume file's `phase`/draft/open-threads content.
+
+**Done when:** either a resume file was picked up (with its `idea_slug` and `resource` in hand) and handed to `discussion`, or none exist / the user declined and you're proceeding to Step 2 below.
+
+## 2. Trigger
 
 Two paths in:
 
@@ -20,22 +28,22 @@ Two paths in:
 
 **Done when:** you have one term to work from, and (if from the candidate path) its `seeds` row.
 
-## 2. Check existing
+## 3. Check existing
 
 Per `.slipbox/config.json`'s filename/casing convention, look for an existing reference note for this term.
 
 - **New term:** no note exists — proceed planning to create one.
 - **Extending:** a note already exists — read it in full now. You'll ground the discussion against it and fold the new resource into it later; don't re-read its historical resource list, the file's own accumulated text is the working summary of everything before it.
 
-## 3. Invoke `discussion`
+## 4. Invoke `discussion`
 
 Run a `/discussion` session, mode `reference`, framed inline as: "definitional, one or more named resources. The user stays grounded to the definition; the agent flags drift into personal opinion. Gate: definition confirmed." Pass in:
 
 - the term
 - the resource(s) named for it
-- if extending: the existing note's current content, read fresh in Step 2
+- if extending: the existing note's current content, read fresh in Step 3
 
-## 4. On completion — new term
+## 5. On completion — new term
 
 Write fresh. Filename = the term as the user writes it, per `.slipbox/config.json` conventions. Frontmatter: `type: reference`, `created`, `sources: [[resource]]`, plus `aliases: [...]` if any were given.
 
@@ -47,7 +55,7 @@ SET type = 'reference', status = 'discussed', note_path = '<new-path>', slug = '
 WHERE slug = '<original-slug>';
 ```
 
-## 5. On completion — extending an existing term
+## 6. On completion — extending an existing term
 
 **This is the PK-collision-safe path. Follow it exactly.**
 
@@ -68,11 +76,11 @@ The trap: this row's slug cannot be renamed to the term's final slug, because th
    VALUES ('<this row's slug>', '<existing reference row's slug>', 'extends');
    ```
 
-3. **Fold the new resource's contribution into the existing file.** Re-read the file from disk immediately before writing (state can have changed between Step 2's read and now). Append/extend only — add the new resource to the `sources` frontmatter array, and fold in whatever the new resource adds or complicates about the term. Never overwrite the file wholesale.
+3. **Fold the new resource's contribution into the existing file.** Re-read the file from disk immediately before writing (state can have changed between Step 3's read and now). Append/extend only — add the new resource to the `sources` frontmatter array, and fold in whatever the new resource adds or complicates about the term. Never overwrite the file wholesale.
 
-Why this is correct: exactly one `seeds` row per term ever holds the term's "canonical" final slug (the first occurrence, renamed in Step 4). Every subsequent extending resource keeps its own distinct, never-renamed slug, and is connected to the canonical row purely through the `links` table (`rel_type: 'extends'`) — never by trying to share or reassign the primary key.
+Why this is correct: exactly one `seeds` row per term ever holds the term's "canonical" final slug (the first occurrence, renamed in Step 5). Every subsequent extending resource keeps its own distinct, never-renamed slug, and is connected to the canonical row purely through the `links` table (`rel_type: 'extends'`) — never by trying to share or reassign the primary key.
 
-## 6. Done when
+## 7. Done when
 
 - The file on disk reflects the confirmed definition and every resource that has ever fed it, old and new.
 - New term: the `seeds` row is renamed and flipped to `type='reference', status='discussed'`.

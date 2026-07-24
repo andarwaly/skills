@@ -15,7 +15,9 @@ This skill turns one `surface-ideas` candidate into a finished literature note: 
 
 Before offering any new work, list `.slipbox/discussions/` for files with `mode: literature` in their frontmatter. If any exist, offer to resume one before offering to start something new.
 
-**Done when:** either a resume file was picked up and handed to `discussion`, or none exist / the user declined and you're proceeding to Step 2.
+**If resuming:** the resume file's frontmatter carries `idea_slug` and `resource` — read both off the file directly rather than re-querying `seeds`. Pass them to `discussion` as the session's starting context exactly as Step 3 describes, along with the resume file's own `phase`/draft/open-threads content, so the conversation continues with the same source it was grounded against before the pause. Skip Step 2 entirely in this branch; there is no new candidate to pick.
+
+**Done when:** either a resume file was picked up (with its `idea_slug` and `resource` in hand) and handed to `discussion`, or none exist / the user declined and you're proceeding to Step 2.
 
 ## 2. Pick a candidate
 

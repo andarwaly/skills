@@ -19,7 +19,7 @@ Starts whenever the user wants to think something through — one or more named 
 
 Before anything else, list `.slipbox/discussions/` for files with `mode: evergreen`. Offer to resume any found before offering to start new work.
 
-- **Resuming:** the resume file names the still-provisional (draft-prefixed) slug. Load the existing placeholder `evergreen` row by that slug and continue the discussion from where the resume file left off.
+- **Resuming:** the resume file names the still-provisional (draft-prefixed) slug. Load the existing placeholder `evergreen` row by that slug and continue the discussion from where the resume file left off. Treat any previously-retrieved notes as possibly stale — the session may have paused for days — and have `discussion` re-verify them against `idea.db` rather than trusting the resume file's summary of their content; a note cited earlier could have been edited or reworded since.
 - **Not resuming:** proceed to Step 3.
 
 **Done when:** you know whether this is a resume or a new session.
