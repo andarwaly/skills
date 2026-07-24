@@ -21,6 +21,14 @@
         {"type": "file_not_created"},
         {"type": "contains", "text": "transcript"}
       ]
+    },
+    {
+      "prompt": "clip this article for me https://example.com/some-post — .slipbox/config.json does not exist in this vault",
+      "expected_output": "Stops before fetching anything, tells the user to run setup-slipbox first, and does not write any file or improvise conventions in config.json's absence.",
+      "assertions": [
+        {"type": "file_not_created"},
+        {"type": "contains", "text": "setup-slipbox"}
+      ]
     }
   ]
 }

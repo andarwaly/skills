@@ -11,6 +11,12 @@ metadata:
 
 This skill takes a Resource file and surfaces candidate ideas from it, and separately flags any reference-worthy terms it names. It does not decide which candidate is worth writing up, and it does not write the literature note or reference note itself: that's `write-literature-note`'s or `write-reference-note`'s job, run separately, possibly in a different session.
 
+## 0. Prerequisite: `.slipbox/config.json` must exist
+
+Check first, before anything else. This skill writes rows to `.slipbox/idea.db`, which is only created by `setup-slipbox` alongside `config.json`.
+
+If `.slipbox/config.json` is absent: stop. Do not proceed to any other step. Tell the user to run `setup-slipbox` first, then re-run this skill.
+
 ## 1. Take the Resource
 
 Ask for the path to an already-captured Resource file: one written by `clip-resource`, or dropped in by an external tool such as Obsidian Web Clipper or Readwise. Either source is fine. Treat the file as frozen: read it, never edit it.

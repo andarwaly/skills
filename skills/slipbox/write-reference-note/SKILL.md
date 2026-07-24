@@ -11,6 +11,12 @@ metadata:
 
 This skill writes or extends a reference note: a definition of a term, answering "what is X." No detector watches for recurrence and this skill never fires on its own — it starts only from one of the two trigger paths below. The actual conversation that produces the definition happens inside `discussion`, mode `reference`; this skill's job is framing that call correctly and handling the `seeds`/`links` bookkeeping around it.
 
+## 0. Prerequisite: `.slipbox/config.json` must exist
+
+Check first, before anything else. This skill queries `.slipbox/idea.db`, which only exists once `setup-slipbox` has run.
+
+If `.slipbox/config.json` is absent: stop. Do not proceed to any other step. Tell the user to run `setup-slipbox` first, then re-run this skill.
+
 ## 1. Resume check, first
 
 Before offering either trigger path below, list `.slipbox/discussions/` for files with `mode: reference` in their frontmatter. If any exist, offer to resume one before offering to start something new.
@@ -59,7 +65,7 @@ WHERE slug = '<original-slug>';
 
 **This is the PK-collision-safe path. Follow it exactly.**
 
-The trap: this row's slug cannot be renamed to the term's final slug, because that slug is already claimed — the term's first occurrence already renamed *its* row to it in Step 4, and `seeds.slug` is the primary key. Renaming this row to the same value would collide with that existing row. So this row keeps its own original slug, permanently.
+The trap: this row's slug cannot be renamed to the term's final slug, because that slug is already claimed — the term's first occurrence already renamed *its* row to it in Step 5, and `seeds.slug` is the primary key. Renaming this row to the same value would collide with that existing row. So this row keeps its own original slug, permanently.
 
 1. **Update this row in place — do not touch its slug:**
 

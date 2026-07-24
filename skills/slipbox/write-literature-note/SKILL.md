@@ -11,6 +11,12 @@ metadata:
 
 This skill turns one `surface-ideas` candidate into a finished literature note: a single Claim, grounded against the one source it came from. It does not surface candidates itself (`surface-ideas`'s job) and it does not hold the conversation itself (`discussion`'s job, mode `literature`) — it picks the candidate, frames the session, and handles everything before and after the conversation: writing the note and flipping the `seeds` row.
 
+## 0. Prerequisite: `.slipbox/config.json` must exist
+
+Check first, before anything else. This skill queries `.slipbox/idea.db`, which only exists once `setup-slipbox` has run.
+
+If `.slipbox/config.json` is absent: stop. Do not proceed to any other step. Tell the user to run `setup-slipbox` first, then re-run this skill.
+
 ## 1. Resume check, first
 
 Before offering any new work, list `.slipbox/discussions/` for files with `mode: literature` in their frontmatter. If any exist, offer to resume one before offering to start something new.

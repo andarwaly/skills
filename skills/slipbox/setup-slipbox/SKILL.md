@@ -11,15 +11,25 @@ metadata:
 
 Every other skill in this family reads `.slipbox/config.json` before it writes anything, and fails fast with "run setup-slipbox first" if it's absent. This skill produces `config.json` plus `idea.db`, `style-profile.md`, and `humanize-checklist.md` through the steps below: prerequisite check, explore, Section A (conventions + clip config), Section B (style), humanize checklist, idea.db init, config write.
 
-## 0. Prerequisite: `sqlite3` on PATH
+## 0. Prerequisites
 
-Check first, before anything else:
+Check both, before anything else. This is the only place in the slipbox family that installs anything — every other skill that hits a missing dependency stops and points back here rather than installing it inline.
+
+**`sqlite3` on PATH:**
 
 ```bash
 command -v sqlite3
 ```
 
 If missing: stop. Do not proceed to any other step. Tell the user `sqlite3` is required to initialize `idea.db`, and offer to install it for them (e.g. via their OS package manager) — never install it without asking. If they'd rather install it themselves, tell them to re-run this skill once it's on PATH.
+
+**`youtube-transcript-api` importable (needed by `clip-resource`'s Video path):**
+
+```bash
+python3 -c "import youtube_transcript_api"
+```
+
+If missing: stop. Tell the user `youtube-transcript-api` is required for clipping video transcripts, and offer to `pip install youtube-transcript-api` for them — never install it without asking. If they'd rather install it themselves, tell them to re-run this skill once it's importable. (If the user has no interest in clipping video, this can be skipped on their explicit say-so — but default to checking, don't assume.)
 
 ## 1. Explore (no questions yet)
 

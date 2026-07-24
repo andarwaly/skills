@@ -14,6 +14,14 @@
         {"type": "sql_query", "query": "SELECT count(*) FROM links WHERE rel_type='extends' AND target_id LIKE '%agentic%'", "min": 1},
         {"type": "sql_query", "query": "SELECT count(*) FROM seeds WHERE type='reference' AND note_path LIKE '%agentic-tools%'", "min": 2}
       ]
+    },
+    {
+      "prompt": "I want a reference note for 'agentic tools' — .slipbox/config.json does not exist in this vault",
+      "expected_output": "Stops before checking for an existing note or invoking discussion, tells the user to run setup-slipbox first, writes no file.",
+      "assertions": [
+        {"type": "file_not_created"},
+        {"type": "contains", "text": "setup-slipbox"}
+      ]
     }
   ]
 }

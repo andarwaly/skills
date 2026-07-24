@@ -11,6 +11,12 @@ metadata:
 
 For the case where the user has no Web Clipper, no Readwise, nothing installed: this skill fetches a URL directly and writes a Resource file that looks like Web Clipper's own output. It never touches `.slipbox/candidates/` or takes part in the candidate pipeline; the one file it reads from that directory is `.slipbox/config.json`, for template paths, filename/frontmatter conventions, and `transcript_languages`, not pipeline bookkeeping. `surface-ideas` reads the Resource file later; this skill's job ends once it's written.
 
+## 0. Prerequisite: `.slipbox/config.json` must exist
+
+Check first, before anything else. This skill reads template paths, filename/frontmatter conventions, and `transcript_languages` from `.slipbox/config.json` — nothing here can proceed without it.
+
+If `.slipbox/config.json` is absent: stop. Do not proceed to any other step, and do not improvise conventions in its place. Tell the user to run `setup-slipbox` first, then re-run this skill.
+
 ## 1. Take the URL
 
 Ask for a single URL: an article, news story, social/forum thread, or video link. There is no paste-the-text fallback. If the user hands you raw text instead of a link, tell them this skill only takes URLs and ask for one.
@@ -47,6 +53,7 @@ Failure taxonomy — these are not interchangeable:
 
 - **`VideoUnavailable`, `TranscriptsDisabled`, `NoTranscriptFound`** — a clean failure. Treat exactly like a paywall or login wall: report it, write nothing, stop.
 - **`RequestBlocked`, `IpBlocked`** — a distinct message. This is an environment or rate-limit problem, not "no transcript exists for this video." Say so explicitly; don't conflate the two failure kinds in the report.
+- **`import` fails / library not installed** — a third, distinct case, different from both of the above: this isn't about the video at all, it's a missing dependency. `setup-slipbox`'s Step 0 should have caught this already; if it's still missing, stop and tell the user to run `setup-slipbox` to install it — do not attempt `pip install` from inside this skill.
 
 No Whisper fallback, or any other transcription workaround, under any failure condition.
 

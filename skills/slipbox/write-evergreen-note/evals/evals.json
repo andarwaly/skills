@@ -13,6 +13,14 @@
       "assertions": [
         {"type": "sql_query", "query": "SELECT iteration FROM evergreen WHERE status='discussed'", "min": 2}
       ]
+    },
+    {
+      "prompt": "I want to think through whether tools shape how we think — .slipbox/config.json does not exist in this vault",
+      "expected_output": "Stops before inserting a placeholder row or retrieving anything from idea.db, tells the user to run setup-slipbox first.",
+      "assertions": [
+        {"type": "sql_query", "query": "SELECT count(*) FROM evergreen", "expect": 0},
+        {"type": "contains", "text": "setup-slipbox"}
+      ]
     }
   ]
 }

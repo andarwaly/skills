@@ -13,6 +13,14 @@
       "assertions": [
         {"type": "not_contains_in_file", "text": "I think", "file_pattern": "literature/*.md"}
       ]
+    },
+    {
+      "prompt": "let's discuss one of the pending ideas from the ai-for-ux-guide resource — .slipbox/config.json does not exist in this vault",
+      "expected_output": "Stops before querying seeds or listing resume files, tells the user to run setup-slipbox first, writes no note and flips no row.",
+      "assertions": [
+        {"type": "file_not_created"},
+        {"type": "contains", "text": "setup-slipbox"}
+      ]
     }
   ]
 }

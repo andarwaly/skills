@@ -20,6 +20,14 @@
       "assertions": [
         {"type": "contains", "text": "already"}
       ]
+    },
+    {
+      "prompt": "surface ideas from resources/ai-for-ux-guide.md — .slipbox/config.json does not exist in this vault",
+      "expected_output": "Stops before reading the resource or querying idea.db, tells the user to run setup-slipbox first, inserts no seeds rows.",
+      "assertions": [
+        {"type": "sql_query", "query": "SELECT count(*) FROM seeds WHERE resource='ai-for-ux-guide'", "expect": 0},
+        {"type": "contains", "text": "setup-slipbox"}
+      ]
     }
   ]
 }

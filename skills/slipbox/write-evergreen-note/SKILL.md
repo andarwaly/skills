@@ -11,6 +11,12 @@ metadata:
 
 This skill writes or evolves an evergreen note: a connection that states something none of the individually cited notes said on their own, produced through a real Socratic discussion grounded against what's actually retrieved from `idea.db`. It does not run the discussion itself — `discussion` (mode `evergreen`) handles the FTS5 retrieval, the Socratic techniques, the grounding rule, the purity rule, and the sign-off rubric internally. This skill owns the `evergreen` row lifecycle, the note file, and the `links` rows.
 
+## 0. Prerequisite: `.slipbox/config.json` must exist
+
+Check first, before anything else. This skill retrieves from and writes to `.slipbox/idea.db`, which only exists once `setup-slipbox` has run.
+
+If `.slipbox/config.json` is absent: stop. Do not proceed to any other step. Tell the user to run `setup-slipbox` first, then re-run this skill.
+
 ## 1. No fixed trigger
 
 Starts whenever the user wants to think something through — one or more named notes, a rough hunch, or both. There's no required shape to how they bring it: "does X connect to Y," "I keep coming back to this idea," "let's think through Z." Don't ask for a specific format; take whatever they open with.
