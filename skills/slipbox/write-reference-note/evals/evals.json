@@ -12,7 +12,7 @@
       "expected_output": "Does not create a second reference note or attempt to rename the new seeds row's slug to match the existing one; instead extends the existing file, adds a links row with rel_type='extends', keeps the new row's original slug unchanged, adds the new resource to the sources frontmatter array.",
       "assertions": [
         {"type": "sql_query", "query": "SELECT count(*) FROM links WHERE rel_type='extends' AND target_id LIKE '%agentic%'", "min": 1},
-        {"type": "sql_query", "query": "SELECT count(*) FROM seeds WHERE type='reference' AND note_path LIKE '%agentic-tools%'", "expect": 1}
+        {"type": "sql_query", "query": "SELECT count(*) FROM seeds WHERE type='reference' AND note_path LIKE '%agentic-tools%'", "min": 2}
       ]
     }
   ]
