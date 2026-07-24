@@ -15,7 +15,7 @@ This skill writes or extends a reference note: a definition of a term, answering
 
 Before offering either trigger path below, list `.slipbox/discussions/` for files with `mode: reference` in their frontmatter. If any exist, offer to resume one before offering to start something new.
 
-**If resuming:** read `idea_slug` and `resource` straight off the resume file's frontmatter — the term and its named resource(s) — instead of running Step 1's trigger paths or Step 2's existing-note check from scratch. Pass them to `discussion` as the session's starting context per Step 3, along with the resume file's `phase`/draft/open-threads content.
+**If resuming:** read `idea_slug` and `resource` straight off the resume file's frontmatter — the term and its named resource(s) — instead of running Step 2's trigger paths or Step 3's existing-note check from scratch. Pass them to `discussion` as the session's starting context per Step 4, along with the resume file's `phase`/draft/open-threads content.
 
 **Done when:** either a resume file was picked up (with its `idea_slug` and `resource` in hand) and handed to `discussion`, or none exist / the user declined and you're proceeding to Step 2 below.
 
