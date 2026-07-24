@@ -4,11 +4,12 @@ Skills for a Zettelkasten-inspired, conversational note-taking pipeline: clip a 
 
 ## Skills
 
-All six are user-invoked — none fire automatically, run them by name.
+Six are user-invoked; `discussion` is internal (invoked only by the three `write-*-note` skills, never directly).
 
-- **[setup-vault](./setup-vault/)** — one-time onboarding: discovers vault conventions and writing style.
+- **[setup-slipbox](./setup-slipbox/)** — one-time onboarding: discovers vault conventions, writing style, clip preferences; initializes `idea.db`.
 - **[clip-resource](./clip-resource/)** — fetches a URL and writes it as a frozen Resource, for users without a clipper tool.
-- **[surface-ideas](./surface-ideas/)** — surfaces discussion-worthy candidates from a clipped Resource.
-- **[discuss-idea](./discuss-idea/)** — Socratic conversation from a candidate to a finished literature note.
-- **[write-reference-note](./write-reference-note/)** — manually-triggered definitional note for a recurring term or source.
-- **[discuss-connection](./discuss-connection/)** — connects existing notes into a new, purely-original idea.
+- **[surface-ideas](./surface-ideas/)** — surfaces discussion-worthy candidates and recurring reference terms from a clipped Resource.
+- **[write-literature-note](./write-literature-note/)** — Socratic discussion from a candidate idea to a finished, Claim-only literature note.
+- **[write-reference-note](./write-reference-note/)** — definitional note for a recurring term or source, grown over multiple resources.
+- **[write-evergreen-note](./write-evergreen-note/)** — connects existing notes into a new, purely-original idea.
+- **[discussion](./discussion/)** *(internal)* — the shared Socratic conversation engine the three `write-*-note` skills each invoke with their own framing.

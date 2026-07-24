@@ -9,34 +9,75 @@ metadata:
 
 # Clip Resource
 
-For the case where the user has no Web Clipper, no Readwise, nothing installed: this skill fetches a URL directly and writes a Resource file that looks like Web Clipper's own output. It never touches `.agents/slipbox/candidates/` or takes part in the candidate pipeline; the one file it reads from that directory is `.agents/slipbox/vault-conventions.md`, for filename and frontmatter conventions, not pipeline bookkeeping. `surface-ideas` reads the Resource file later; this skill's job ends once it's written.
+For the case where the user has no Web Clipper, no Readwise, nothing installed: this skill fetches a URL directly and writes a Resource file that looks like Web Clipper's own output. It never touches `.slipbox/candidates/` or takes part in the candidate pipeline; the one file it reads from that directory is `.slipbox/config.json`, for template paths, filename/frontmatter conventions, and `transcript_languages`, not pipeline bookkeeping. `surface-ideas` reads the Resource file later; this skill's job ends once it's written.
 
 ## 1. Take the URL
 
-Ask for a single URL: an article or a video link. There is no paste-the-text fallback. If the user hands you raw text instead of a link, tell them this skill only takes URLs and ask for one.
+Ask for a single URL: an article, news story, social/forum thread, or video link. There is no paste-the-text fallback. If the user hands you raw text instead of a link, tell them this skill only takes URLs and ask for one.
 
-## 2. Fetch
+## 2. Detect the content type
+
+Determine which of the four content types applies, in this priority order:
+
+1. **User-stated type** — if the user says "clip this article" or "clip this video," take it as a starting hypothesis, not a final answer.
+2. **URL pattern** — domain and path shape (e.g. `youtube.com/watch`, `reddit.com/r/.../comments/`, a news outlet's domain).
+3. **schema.org** — `NewsArticle`, `Article`, `DiscussionForumPosting`, `VideoObject`, etc., read off the fetched page.
+4. **Conflict check** — compare the user-stated type (if any) against what the URL pattern and schema.org indicate. A real conflict (user says "article," URL is a Reddit thread) gets flagged to the user before anything is written — never silently overridden in either direction.
+5. **Ask fallback** — if signals disagree with each other or nothing resolves confidently, ask the user which type it is rather than guessing.
+
+The four content types: **Article**, **News**, **Social/Forum thread**, **Video**.
+
+## 3. Fetch and extract
 
 Retrieve the page or video content directly. Note what you actually got back: full content, a truncated snippet, or nothing.
 
-## 3. Transform
+For all four types, resolve facts (author, title, published date, etc.) via the same extraction ladder, in order, stopping at the first rung that yields the value:
 
-Shape what you fetched into Web Clipper's format:
+1. **schema.org JSON-LD** — structured data embedded in the page.
+2. **`<meta>` tags** — Open Graph / standard meta tags (`og:title`, `article:author`, etc.).
+3. **LLM-read fallback** — read the fetched content directly and infer the value.
 
-- Frontmatter: `type`, `link`, `author`, `published`, `tags`.
-- Body: a cleaned rewrite of the article, or a structured summary for video.
+There is no CSS-selector extraction rung — this skill has no DOM access (no headless browser). That's a future addition once a headless-browser capability exists in this environment, not something to fake with regex or guesswork today.
+
+### Video is the one exception to "fetch the page"
+
+For Video, don't fetch the page HTML for the transcript. Use the **`youtube-transcript-api`** Python library directly (not the `ytt` CLI wrapper) to pull the transcript. Pass `languages` sourced from `.slipbox/config.json`'s `transcript_languages` ordered list.
+
+Failure taxonomy — these are not interchangeable:
+
+- **`VideoUnavailable`, `TranscriptsDisabled`, `NoTranscriptFound`** — a clean failure. Treat exactly like a paywall or login wall: report it, write nothing, stop.
+- **`RequestBlocked`, `IpBlocked`** — a distinct message. This is an environment or rate-limit problem, not "no transcript exists for this video." Say so explicitly; don't conflate the two failure kinds in the report.
+
+No Whisper fallback, or any other transcription workaround, under any failure condition.
+
+## 4. Transform
+
+Shape what you fetched into Web Clipper's format, per type:
+
+- **Frontmatter**: `type` holds the content type directly — `article`, `news`, `social`, or `video`. Never a generic `"resource"` value; being a Resource is implied by folder location. Plus `link`, `author`, `published`, `tags` as usual.
+- **Article**: body is a full cleaned rewrite of the source.
+- **News**: adds a `publisher` frontmatter field. Body is a summarized/compressed treatment, not a full rewrite.
+- **Social/Forum thread**: content is the root post plus the author's own continuation replies — the thread-as-a-single-post case (e.g. an X/Twitter thread) — not top community replies from other participants. `author` is the display name, falling back to handle if no display name is available.
+- **Video**: body is the transcript pulled in Step 3. `author` is the channel.
 - Entity sections where the content supports them: People, Tools, Resources, Definition.
-- For video, the full transcript.
 
 Stop there. Do not add a "Bud candidate" section, a "Further exploration" section, or any other line that names an idea worth pursuing or a conclusion about what the content means. Reading the material and forming an opinion on it is `surface-ideas`'s Socratic stage, run later and separately. A Resource file that already contains a take skips that stage instead of feeding it.
 
-## 4. Write
+## 5. Variable syntax (summary)
 
-Save the file using the filename and frontmatter conventions recorded in `.agents/slipbox/vault-conventions.md` by `setup-vault`. Once written, treat the file as frozen: this skill does not reopen it to edit, append, or correct it, and no other skill in this family does either. If the fetch or transform needs a fix, redo the clip and write a fresh file rather than patching the old one.
+Templates (see `.slipbox/config.json`'s `templates` paths for the four resource templates) use two variable forms, matching Obsidian Web Clipper's own convention — no new syntax invented. Full detail in `references/variable-glossary.md`.
 
-## 5. Report the outcome
+- Bare `{{variable}}` — a **fact**, resolved via the extraction ladder above (e.g. `{{author}}`, `{{title}}`, `{{transcript}}`).
+- Quoted `{{"instruction"}}` — a **synthesis instruction**, freeform natural language executed inline by the same agent running this skill. No separate Interpreter service, no API key.
+- No template logic layer (`{% if %}`, `{% for %}`) — the agent applies judgment directly; a rules-engine layer here would be redundant.
+
+## 6. Write
+
+Save the file using the filename and frontmatter conventions recorded in `.slipbox/config.json`. Once written, treat the file as frozen: this skill does not reopen it to edit, append, or correct it, and no other skill in this family does either. If the fetch or transform needs a fix, redo the clip and write a fresh file rather than patching the old one.
+
+## 7. Report the outcome
 
 Two valid endings, both explicit:
 
-- **Success**: the Resource file exists at its path, shaped per Step 3. Tell the user where it landed.
-- **Fetch failure**: the fetch returned an error, or returned content but it's a paywall teaser, a login wall, or otherwise not the real article or video. Report plainly what came back and why it looks incomplete, and stop there. Do not write a partial Resource file, and do not attempt to work around the paywall or login gate. A clear failure report is a complete, correct run of this skill; a half-written Resource file is not.
+- **Success**: the Resource file exists at its path, shaped per Step 4, with the correct `type` in frontmatter. Tell the user where it landed.
+- **Fetch failure**: the fetch returned an error, or returned content but it's a paywall teaser, a login wall, a blocked/rate-limited transcript request, or otherwise not the real article/thread/video. Report plainly what came back and why it looks incomplete, and stop there. Do not write a partial Resource file, and do not attempt to work around the paywall, login gate, or block. A clear failure report is a complete, correct run of this skill; a half-written Resource file is not.

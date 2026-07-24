@@ -1,6 +1,6 @@
 ---
 name: write-reference-note
-description: Manually-triggered, definitional note for a term or source that recurs across your notes, or that you're simply curious about. Not tied to any single clip's outcome — grows over time as more resources touch it.
+description: Manually-triggered, definitional note for a term or source that recurs across your notes, or that you're simply curious about — via a real Socratic discussion. Not tied to any single clip's outcome; grows over time as more resources touch it.
 disable-model-invocation: true
 license: MIT
 metadata:
@@ -9,42 +9,79 @@ metadata:
 
 # Write Reference Note
 
-This skill writes or extends a reference note: a definition of a term, answering "what is X." It does not read the candidate CSVs and does not touch `.agents/slipbox/candidates/` at all; there is no clip to react to and no row to update. `discuss-idea` proposes links to reference notes while discussing a claim, and the user confirms each one there. This skill is the other half: where a reference note actually gets created or extended, whether or not that conversation ever happened.
+This skill writes or extends a reference note: a definition of a term, answering "what is X." No detector watches for recurrence and this skill never fires on its own — it starts only from one of the two trigger paths below. The actual conversation that produces the definition happens inside `discussion`, mode `reference`; this skill's job is framing that call correctly and handling the `seeds`/`links` bookkeeping around it.
 
-## 1. Wait for the user to name a term
+## 1. Resume check, first
 
-There's no detector watching for recurrence. This skill starts only when the user brings a term to it directly, either because they noticed it showing up in two or more notes, or because they're just curious about it. Ask which term, if it isn't already obvious from context.
+Before offering either trigger path below, list `.slipbox/discussions/` for files with `mode: reference` in their frontmatter. If any exist, offer to resume one before offering to start something new.
 
-**Done when:** you have one named term to work from.
+**If resuming:** read `idea_slug` and `resource` straight off the resume file's frontmatter — the term and its named resource(s) — instead of running Step 2's trigger paths or Step 3's existing-note check from scratch. Pass them to `discussion` as the session's starting context per Step 4, along with the resume file's `phase`/draft/open-threads content.
 
-## 2. Check for an existing note
+**Done when:** either a resume file was picked up (with its `idea_slug` and `resource` in hand) and handed to `discussion`, or none exist / the user declined and you're proceeding to Step 2 below.
 
-Look for a reference note already filed under this term, using the filename convention in `.agents/slipbox/vault-conventions.md`. Two paths from here:
+## 2. Trigger
 
-- **No existing note:** proceed to Step 3 to build the definition from scratch.
-- **Existing note:** read it in full, then proceed to Step 3 to extend it rather than replace it.
+Two paths in:
 
-## 3. Build the definition
+- **Named directly.** The user brings a term to this skill themselves — noticed it recurring, or just curious. Ask which term if it isn't already obvious from context.
+- **Pending reference candidates.** The user works through the queue: `SELECT * FROM seeds WHERE target_type='reference' AND status='to-discuss'` — the same mechanism `write-literature-note` uses for its own picks. Offer these; let the user choose one.
 
-Ask the user which resource(s) prompted this term: the note they were reading, or their own recollection of where they've seen it before. Draft a definition of the term itself, in the user's own words, not the source's phrasing verbatim.
+**Done when:** you have one term to work from, and (if from the candidate path) its `seeds` row.
 
-Two things this is not:
+## 3. Check existing
 
-- **Not the user's own idea.** An argument, a take, a reaction the user wants to develop is `discuss-connection`'s job. If the conversation drifts into "here's what I think about X" rather than "here's what X is," note that this belongs in an evergreen note instead and keep this draft to the definition.
-- **Not a citation record.** The source is there to anchor the definition, not to be the point of the note. A note that's mostly bibliographic detail with a thin definition attached has the emphasis backwards.
+Per `.slipbox/config.json`'s filename/casing convention, look for an existing reference note for this term.
 
-Every definition here traces back to at least one resource. Record which resource(s) fed it as you go, so the note carries that link when it's written.
+- **New term:** no note exists — proceed planning to create one.
+- **Extending:** a note already exists — read it in full now. You'll ground the discussion against it and fold the new resource into it later; don't re-read its historical resource list, the file's own accumulated text is the working summary of everything before it.
 
-**Done when:** the user has confirmed the definition reads correctly, and you know which resource(s) it draws from.
+## 4. Invoke `discussion`
 
-## 4. Humanize
+Run a `/discussion` session, mode `reference`, framed inline as: "definitional, one or more named resources. The user stays grounded to the definition; the agent flags drift into personal opinion. Gate: definition confirmed." Pass in:
 
-Run the humanizer pass on the finished definition before writing it.
+- the term
+- the resource(s) named for it
+- if extending: the existing note's current content, read fresh in Step 3
 
-## 5. Write
+## 5. On completion — new term
 
-**New note:** use the filename and frontmatter conventions in `.agents/slipbox/vault-conventions.md`. Write the definition with a link back to the resource(s) named in Step 3.
+Write fresh. Filename = the term as the user writes it, per `.slipbox/config.json` conventions. Frontmatter: `type: reference`, `created`, `sources: [[resource]]`, plus `aliases: [...]` if any were given.
 
-**Existing note:** re-read the file from disk immediately before writing, then extend it: add the new resource's link, and fold in anything the new source adds or complicates about the term. Don't overwrite what's already there wholesale; a reference note accumulates across resources over separate runs of this skill rather than getting finalized once.
+`seeds` bookkeeping — rename-in-place, same as literature, because this really is the term's first occurrence:
 
-**Done when:** the file on disk reflects the confirmed definition and every resource that has ever fed it, old and new.
+```sql
+UPDATE seeds
+SET type = 'reference', status = 'discussed', note_path = '<new-path>', slug = '<final-slug>'
+WHERE slug = '<original-slug>';
+```
+
+## 6. On completion — extending an existing term
+
+**This is the PK-collision-safe path. Follow it exactly.**
+
+The trap: this row's slug cannot be renamed to the term's final slug, because that slug is already claimed — the term's first occurrence already renamed *its* row to it in Step 4, and `seeds.slug` is the primary key. Renaming this row to the same value would collide with that existing row. So this row keeps its own original slug, permanently.
+
+1. **Update this row in place — do not touch its slug:**
+
+   ```sql
+   UPDATE seeds
+   SET type = 'reference', status = 'discussed', note_path = '<the EXISTING note''s path>'
+   WHERE slug = '<this row's original, unchanged slug>';
+   ```
+
+2. **Insert a `links` row recording the relationship** — this row's own (unchanged) slug is the source, the existing reference row's slug is the target:
+
+   ```sql
+   INSERT INTO links (source_id, target_id, rel_type)
+   VALUES ('<this row's slug>', '<existing reference row's slug>', 'extends');
+   ```
+
+3. **Fold the new resource's contribution into the existing file.** Re-read the file from disk immediately before writing (state can have changed between Step 3's read and now). Append/extend only — add the new resource to the `sources` frontmatter array, and fold in whatever the new resource adds or complicates about the term. Never overwrite the file wholesale.
+
+Why this is correct: exactly one `seeds` row per term ever holds the term's "canonical" final slug (the first occurrence, renamed in Step 5). Every subsequent extending resource keeps its own distinct, never-renamed slug, and is connected to the canonical row purely through the `links` table (`rel_type: 'extends'`) — never by trying to share or reassign the primary key.
+
+## 7. Done when
+
+- The file on disk reflects the confirmed definition and every resource that has ever fed it, old and new.
+- New term: the `seeds` row is renamed and flipped to `type='reference', status='discussed'`.
+- Extension: the extending row is flipped in place (unchanged slug, `note_path` pointing at the existing file) and a `links` row (`rel_type: 'extends'`) connects it to the canonical row.

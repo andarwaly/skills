@@ -58,12 +58,12 @@ The install picker (`npx skills add`) shows every skill below under one flat "An
 
 | Skill | Version | Description |
 |---|---|---|
-| [setup-vault](./skills/slipbox/setup-vault) | 1.0.0 | One-time onboarding — discovers vault conventions and writing style before any other slipbox skill runs |
+| [setup-slipbox](./skills/slipbox/setup-slipbox) | 1.0.0 | One-time onboarding — discovers vault conventions, writing style, and clip preferences; initializes idea.db |
 | [clip-resource](./skills/slipbox/clip-resource) | 1.0.0 | Fetch a URL and write it as a frozen Resource, for users without a clipper tool |
-| [surface-ideas](./skills/slipbox/surface-ideas) | 1.0.0 | Surface 5-10 discussion-worthy candidate ideas from a clipped Resource |
-| [discuss-idea](./skills/slipbox/discuss-idea) | 1.0.0 | Socratic conversation from a candidate idea to a finished Claim/Take literature note |
-| [write-reference-note](./skills/slipbox/write-reference-note) | 1.0.0 | Manually-triggered definitional note for a recurring term or source |
-| [discuss-connection](./skills/slipbox/discuss-connection) | 1.0.0 | Connect two or more existing notes into a new, purely original idea |
+| [surface-ideas](./skills/slipbox/surface-ideas) | 1.0.0 | Surface 5-10 discussion-worthy candidate ideas and recurring reference terms from a clipped Resource |
+| [write-literature-note](./skills/slipbox/write-literature-note) | 1.0.0 | Socratic discussion from a candidate idea to a finished, Claim-only literature note |
+| [write-reference-note](./skills/slipbox/write-reference-note) | 1.0.0 | Definitional note for a recurring term or source, grown over multiple resources |
+| [write-evergreen-note](./skills/slipbox/write-evergreen-note) | 1.0.0 | Connect two or more existing notes into a new, purely original idea |
 
 ## Usage
 
