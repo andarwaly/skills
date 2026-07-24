@@ -33,7 +33,7 @@ An evergreen note is atomic if it expresses exactly one independently referencea
 - A Claim lives in a literature note; a Take lives in an evergreen note. They never coexist in the same note.
 - `write-literature-note` and `write-evergreen-note` both internally invoke the same skill, **`discussion`** (bare, mode-agnostic name, matching how `grill-with-docs` invokes `grilling`) — each states its own framing inline (mode `literature`, mode `reference`, or mode `evergreen`), rather than each having its own separate discussion skill. `discussion` itself is not invoked directly by the user.
 - `write-reference-note` produces/extends reference notes, triggered by the user naming a term directly, or by a recurring-term row `surface-ideas` surfaces into `idea.db` (`type: raw, target_type: reference`). Routes its interview through `discussion` (mode `reference`) too, same as the other two — not left inline.
-- Each of the three note types has its own template file (Obsidian core Templates plugin or Templater, whichever the user has), discovered or offered by `setup-vault` per type, not a single shared template.
+- Each of the three note types has its own template file (Obsidian core Templates plugin or Templater, whichever the user has), discovered or offered by `setup-slipbox` per type, not a single shared template.
 
 ## Flagged ambiguities
 

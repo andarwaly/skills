@@ -12,7 +12,7 @@ Run this against a Resource file (written by `clip-resource`, or dropped in by a
 2. **Surface pass** — surfaces 5-10 candidates, each a question plus its motivation. Neither half is allowed to be a conclusion: a candidate that already states what an idea means has skipped past exploration into the discussion `write-literature-note` is supposed to have later. A candidate like *"Knowledge is most useful when broken into atomic, standalone ideas"* gets rejected and rewritten as a question instead — something like *"What would it mean to treat a note as a single reusable idea rather than a container for everything related to a topic?"*
 3. **Diversity check** — uses the Idea Compass to ensure candidates spread across multiple dimensions: Origin (what led the source to this idea?), Similar (what else resembles this?), Competes (what's the strongest counter-argument?), and Leads to (what does this imply next?). A surface pass where every candidate points in the same direction isn't diverse enough, even if each one is individually well-formed.
 4. **Dismiss at surface time** — some candidates aren't worth keeping at all (too thin, too redundant). These are dropped silently, leaving no trace — different from a candidate dismissed later during `write-literature-note`'s pick step, which does get recorded.
-5. **Write** — appends surviving candidates to a per-Resource CSV at `.agents/slipbox/candidates/<resource-slug>.csv`. Zero surviving candidates is a valid, complete outcome, not a failure.
+5. **Write** — inserts surviving candidates as `seeds` rows in `.slipbox/idea.db`, one row per candidate. Zero surviving candidates is a valid, complete outcome, not a failure.
 
 ## Usage
 
